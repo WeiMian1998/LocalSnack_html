@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personal_sc.css">
+	<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/baseUrl.js" ></script>
+	<style type="text/css">
+			.noOrder{
+				display: none;
+			    margin-left: 245px;
+			    margin-top: 120px;				
+			}
+	</style>
+</head>
+<body>
+	<div class="header-container">
+		<div class="top-nav">
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper_personal">
+ 		<div class="header-box">
+			<div class="pic">
+				<a href="#"><img id="myImg" src=""></a>
+			</div>
+
+			<div class="txt">
+				<div class="tit">
+					<h2 id="userName" class="name"></h2>
+					<div class="edit">
+						<a id="toEditMassage" href="personal_massage.html">[编辑资料]</a>
+					</div>
+					<div class="nav">
+						<ul>
+							<li class="cur">
+								<a onclick="toCollection()" style="background-color:#ff8400 ;border-color: #ff840;color:white;" href="javascript:void(0)">收藏</a>
+							</li>
+							<li class="cur">
+								<a onclick="toReview()" href="javascript:void(0)">点评</a>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-box home-container">
+			<div class="main">
+				<div class="modebox favor-box">
+					<div class="con">
+						<div class="pic-txt favor-list">
+							<div id="noOrder" class="noOrder">
+								<img style="width: 280px;" src="../../static/img/haveNoContent.jpg" />
+							</div>							
+							<ul id="collectionList">
+								<li v-for="data in datas" class="odd">
+									<div class="txt">
+										<div class="tit">
+											<h6>
+												<a class="tit_a" v-bind:href=['shop.html?shop_id='+data.shop_id]>{{data.shop_name}}</a>
+											</h6>
+										</div>
+
+										<div class="txt-c">
+											<div class="mode-tc address">
+												<p>
+													<span class="num">4.5分</span>
+													<span class="city">[{{data.name}}]</span>
+													{{data.shop_address}}
+													<span class="tel">87002010</span>
+												</p>												
+											</div>
+											<div class="mode-tc info">
+												<span class="col-exp">
+													<i class="time">
+														{{data.col_date}}
+													</i>收藏
+												</span>
+												<em class="line">|</em>
+												<p v-bind:id=['noCollection'+data.id] v-bind:onclick=['addCol('+data.shop_id+')'] class="isdelete" >收藏</p>
+												<p v-bind:id=['haveCollection'+data.id]  class="haveCollection" >已收藏</p>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+		var getUrl =window.location.search;
+		var userId=getUrl.substring(9);
+		is_shopping();
+		
+	if(userId == ""){
+		$("#userName").html(localStorage["userName"]);
+		$("#myImg").attr("src",localStorage["headImage"]);
+	}
+	
+	showCollection("#collectionList");
+	function showCollection(el){
+		if(userId == ""){
+			$.ajax({
+				type:"get",
+				url:url+"Collection_info/showCollectionList",
+				async:true,
+				dataType:"json",
+				data:{
+					user_id:localStorage["userId"],
+				},success:function(data){
+					console.log(data);
+					if(data.data.length == 0){
+						$("#noOrder").css("display","block");
+					}
+					$("#noCollection").css("display","none");
+					for(var i = 0;i<data.data.length;i++){
+						data.data[i].col_date = timestampToTime(data.data[i].col_date-0);
+					}
+					new Vue({
+						el:el,
+						data:{
+							datas:data.data
+						}
+					})
+					
+				},error:function(data){
+					
+				}
+			});					
+		}else{
+			$.ajax({
+				type:"get",
+				url:url+"Collection_info/showCollectionList",
+				async:true,
+				dataType:"json",
+				data:{
+					user_id:userId,
+				},success:function(data){
+					console.log(data);
+					if(data.data.length == 0){
+						$("#noOrder").css("display","block");
+					}
+					if(data.data[0].user_id == localStorage["userId"]){
+						$("#toEditMassage").css("display","block");
+					}else{
+						$("#toEditMassage").css("display","none");						
+					}
+					$("#userName").html(data.data[0].user_name);
+					$("#myImg").attr("src",data.data[0].head);
+
+
+					new Vue({
+						el:el,
+						data:{
+							datas:data.data
+						}
+					})
+					//sleep(1000);
+					for(var i = 0;i<data.data.length;i++){
+						data.data[i].col_date = timestampToTime(data.data[i].col_date-0);
+						//alert(data.data[i].shop_id);
+						isCollection(data.data[i].shop_id);
+					}
+				},error:function(data){
+					console.log(data);
+				}
+			});					
+		}
+		
+	}
+
+				function addCol(shop_id){
+					$.ajax({
+						type:"post",
+						url:url+"Collection_info/addCollection",
+						async:true,
+						dataType:"json",
+						data:{
+							token:localStorage["token"],
+							shop_id:shop_id,
+						},success:function(data){
+							console.log(data);
+							alert("收藏成功");
+							showBase();
+						},error:function(data){
+							console.log(data);
+						}
+					});							
+			}
+
+	function isCollection(id){
+		$.ajax({
+			type:"get",
+			url:url+"Collection_info/showCollectionList",
+			async:true,
+			dataType:"json",
+			data:{
+				user_id:localStorage["userId"],
+			},success:function(data){
+				console.log(data);
+				for(var i=0;i<data.data.length;i++){
+					if(data.data[i].shop_id == id){
+						//alert(2);
+						$("#haveCollection"+data.data[i].id).css("display","block");
+						$("#noCollection"+data.data[i].id).css("display","none");
+					}else{
+						//alert($("#haveCollection"+data.data[i].id).css("display"));
+						$("#haveCollection"+data.data[i].id).css("display","none");
+						$("#noCollection"+data.data[i].id).css("display","block");
+					}
+				}
+			},error:function(data){
+				
+			}
+		});		
+	}
+		function toCollection(){
+			window.location.href="personal_sc.html?user_id="+userId;
+		}
+		function toReview(){
+			window.location.href="personal.html?user_id="+userId;
+		}
+
+	function showNewReview(){
+		$.ajax({
+			type:"get",
+			url:controllerUrl+"review_info/showNewReview",
+			async:true,
+			dataType:"json",
+			data:{
+				
+			},success:function(data){
+				console.log(data);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showScore(){
+		$.ajax({
+			type:"get",
+			url:controllerUrl+"shop_info/showScore",
+			async:true,
+			dataType:"json",
+			data:{
+				shopId:shopId,
+				
+			},success:function(data){
+				console.log(data);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+
+function sleep(numberMillis) {
+   var now = new Date();
+   var exitTime = now.getTime() + numberMillis;
+   while (true) {
+      now = new Date();
+      if (now.getTime() > exitTime)
+      　　return;
+      }
+   }
+</script>

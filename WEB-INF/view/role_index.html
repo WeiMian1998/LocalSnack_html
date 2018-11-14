@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>客户管理-BootCRM</title>
+	
+	<script src="../../static/js/jquery-1.11.3.min.js"></script>
+	<script src="../../static/js/bootstrap.min.js"></script>
+	<script src="../../static/js/metisMenu.min.js"></script>
+	<script src="../../static/js/jquery.dataTables.min.js"></script>
+	<script src="../../static/js/dataTables.bootstrap.min.js"></script>
+	<script src="../../static/js/sb-admin-2.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	
+	<link href="../../static/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../static/css/metisMenu.min.css" rel="stylesheet" />
+	<link href="../../static/css/dataTables.bootstrap.css" rel="stylesheet" />
+	<link href="../../static/css/sb-admin-2.css" rel="stylesheet" />
+	<link href="../../static/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<link href="../../static/css/boot-crm.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.tit{
+			    text-align: center;
+		}
+		.fenye{
+		    margin-bottom: 120px;
+		    float: right;
+		}
+		.fenye ul{
+			list-style: none;
+		}
+		.fenye  ul li{
+			background-color: whitesmoke;
+			border-radius: 4px;
+		    float: left;
+		    margin-left: 10px;
+		    border: 1px solid;
+		    width: 20px;
+		    height: 20px;
+		    text-align: center;
+		}
+		.fenye ul li a{
+			color: black;
+		}
+	</style>
+</head>
+<body>
+<div id="wrapper">
+  <!-- 导航栏部分 -->
+  <nav class="navbar navbar-default navbar-static-top" role="navigation"
+		 style="margin-bottom: 0">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="<%=basePath%>customer/list.action">当地小食管理系统</a>
+	</div>
+	<!-- 左侧显示列表部分 start-->
+	<div class="navbar-default sidebar" role="navigation">
+		<div class="sidebar-nav navbar-collapse">
+			<ul class="nav" id="side-menu">
+				<li>
+				    <a href="${pageContext.request.contextPath }/customer/list.action" class="active tit">
+				      用户管理
+				    </a>
+				</li>
+				<li>
+				    <a class="tit" href="#">
+				     	商户管理
+				    </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 左侧显示列表部分 end--> 
+  </nav>
+    <!-- 客户列表查询部分  start-->
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">用户管理</h1>
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+		<!-- /.row -->
+<!--		<div class="panel panel-default">
+			<div class="panel-body">
+				<form class="form-inline" method="get" 
+				      action="${pageContext.request.contextPath }/customer/list.action">
+					<div class="form-group">
+						<label for="customerName">编号</label> 
+						<input type="text" class="form-control" id="userId"  name="custName" />
+					</div>
+					<div class="form-group">
+						<label for="customerFrom">真实姓名</label> 
+						<input type="text" class="form-control" id="real_name"  name="custName" />
+					</div>
+					<button type="submit" class="btn btn-primary">查询</button>
+				</form>
+			</div>
+		</div>-->
+		<a href="#" class="btn btn-primary" data-toggle="modal" 
+		           data-target="#newCustomerDialog" onclick="clearCustomer()">新建</a>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">用户信息列表</div>
+					<!-- /.panel-heading -->
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>编号</th>
+								<th>账号</th>
+								<th>昵称</th>
+								<th>真实姓名</th>
+								<th>手机号</th>
+								<th>地址</th>
+								<th>性别</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="userList">
+								<tr v-for="data in datas">
+									<td>{{data.user_id}}</td>
+									<td>{{data.account}}</td>
+									<td>{{data.user_name}}</td>
+									<td>{{data.real_name}}</td>
+									<td>{{data.telphone}}</td>
+									<td>{{data.address}}</td>
+								  	<td>{{data.sex}}</td>
+									<td>
+										<a v-bind:id=["editUpdate"+data.user_id] href="javascript:void(0)" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#customerEditDialog" v-bind:onclick= ["editUpdate("+data.user_id+")"]>修改</a>
+										<a href="javascript:void(0)" class="btn btn-danger btn-xs" v-bind:onclick=["deleteUser("+data.user_id+")"]>删除</a>
+									</td>
+								</tr>
+						</tbody>
+					</table>
+					<div class="col-md-12 text-right">
+						<itheima:page url="${pageContext.request.contextPath }/customer/list.action" />
+					</div>
+					<!-- /.panel-body -->
+				</div>
+					<div class="fenye">
+						<ul  id="page">
+							<li ><a href=''>1</a></li>
+							
+						</ul>						
+					</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-12 -->
+		</div>
+	</div>
+	<!-- 客户列表查询部分  end-->
+</div>
+<!-- 创建客户模态框 -->
+<div class="modal fade" id="newCustomerDialog" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">添加用户</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="new_customer_form">
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    账号
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="account" placeholder="账号" name="account" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    密码
+						</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" id="password" placeholder="密码" name="password" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    昵称
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="userName" placeholder="请输入昵称" name="userName" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    真实姓名
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="realName" placeholder="请输入真实姓名" name="realName" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    手机号
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="telphone" placeholder="请输入手机号" name="telphone" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="new_customerName" class="col-sm-2 control-label">
+						    详细地址
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="address" placeholder="请输入详细地址" name="address" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="add_user()">添加用户</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 修改客户模态框 -->
+<div class="modal fade" id="customerEditDialog" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="edit_customer_form">
+					<input type="hidden" id="edit_cust_id" name="cust_id"/>
+					<div class="form-group">
+						<label for="edit_customerName" class="col-sm-2 control-label">昵称</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="UserName" placeholder="未填写" name="UserName" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="edit_customerName" class="col-sm-2 control-label">真实姓名</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="user_realName" placeholder="未填写" name="RealName" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="edit_customerName" class="col-sm-2 control-label">手机号</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="user_telphone" placeholder="未填写" name="TelPhone" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="edit_customerName" class="col-sm-2 control-label">地址</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="user_address" placeholder="未填写" name="user_address " />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="edit_customerName" class="col-sm-2 control-label">简介</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="user_content" placeholder="未填写" name="user_address " />
+						</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="updateUser()">保存修改</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var url = "http://localhost:8080/";
+	var num = 0;
+	showUser(1,"#userList");
+	var v = null;
+	function showUser(first,el){
+		$.ajax({
+			type:"get",
+			url:url+"user/showUser",
+			async:true,
+			dataType:"json",
+			data:{
+				first:first,
+				each:10,
+			},success:function(data){
+				console.log(data);
+				showtotal();
+				if(v == null || v == "null"){
+					v = new Vue({
+						el:el,
+						data:{
+							datas:data.data
+						}
+					})	
+					for(var j = 0;j<data.data.length;j++){
+						if(data.data[j].sex == 0){
+							data.data[j].sex ="女";
+						}else{
+							data.data[j].sex = "男";
+						}
+					}
+				}else{
+					 v._data.datas = data.data;	
+				}
+			}
+		});
+	}
+	
+	function showtotal(){
+		$.ajax({
+			type:"get",
+			url:url+"user/showtotal",
+			async:true,
+			dataType:"json",
+			data:{
+			},success:function(data){
+				num = Math.floor((data.data.length -1)/10) + 1;
+				showLi();
+				console.log(data);
+				
+			}
+		});
+	}
+	//根据查询到的总页数，显示页数
+	function showLi(){
+		var str = "";
+		for(var i =1 ;i<=num;i++){
+			str+="<li ><a onclick=toOtherPage("+i+") href='javascript:void(0)' ''>"+i+"</a></li>";
+		}
+		$("#page").html(str);
+	}
+	//添加用户
+	function add_user() {
+		$.ajax({
+			type:"post",
+			url:url+"user/addUser",
+			async:true,
+			dataType:"json",
+			data:{
+				account:$("#account").val(),
+				password:$("#password").val(),
+				user_name:$("#userName").val(),
+				real_name:$("#realName").val(),
+				telphone:$("#telphone").val(),
+				address:$("#address").val(),
+			},success:function(data){
+				console.log(data);
+				alert("添加成功");
+				window.location.href="role_index.html";
+			}
+		});
+	}
+	//跳转到其他分页
+	function toOtherPage(first){
+		showUser(first,"#userList");
+	}
+	// 通过id获取修改的客户信息
+/*	function editCustomer(id) {
+	    $.ajax({
+	        type:"get",
+	        url:"<%=basePath%>customer/getCustomerById.action",
+	        data:{"id":id},
+	        success:function(data) {
+	            $("#edit_cust_id").val(data.cust_id);
+	            $("#edit_customerName").val(data.cust_name);
+	            $("#edit_customerFrom").val(data.cust_source)
+	            $("#edit_custIndustry").val(data.cust_industry)
+	            $("#edit_custLevel").val(data.cust_level)
+	            $("#edit_linkMan").val(data.cust_linkman);
+	            $("#edit_phone").val(data.cust_phone);
+	            $("#edit_mobile").val(data.cust_mobile);
+	            $("#edit_zipcode").val(data.cust_zipcode);
+	            $("#edit_address").val(data.cust_address);
+	            
+	        }
+	    });
+	}*/
+    // 执行修改客户操作
+	function editUpdate(userId) {
+		$.ajax({
+			type:"get",
+			url:url+"user/findByUserId",
+			async:true,
+			dataType:"json",
+			data:{
+				user_id:userId,
+			},success:function(data){
+				console.log(data);
+				localStorage.setItem("user_id",data.data[0].user_id);
+				$("#user_address").val(data.data[0].address);
+				$("#user_content").val(data.data[0].introduce);
+				$("#user_realName").val(data.data[0].real_name);
+				$("#UserName").val(data.data[0].user_name);
+				$("#user_telphone").val(data.data[0].telphone);
+			}
+		});
+	}
+	
+	function updateUser() {
+		$.ajax({
+			type:"post",
+			url:url+"user/updateUserByRole",
+			async:true,
+			dataType:"json",
+			data:{
+				user_id:localStorage["user_id"],
+				address:$("#user_address").val(),
+				introduce:$("#user_content").val(),
+				real_name:$("#user_realName").val(),
+				user_name:$("#UserName").val(),
+				telphone:$("#user_telphone").val(),
+			},success:function(data){
+				console.log(data);
+				alert("修改成功！");
+				history.go(0);
+			}
+		});
+	}
+	// 删除客户
+	function deleteUser(id) {
+		$.ajax({
+			type:"post",
+			url:url+"user/deleteUser",
+			async:true,
+			dataType:"json",
+			data:{
+				user_id:id,
+			},success:function(data){
+				console.log(data);
+				alert("删除成功");
+				window.location.href="role_index.html";
+			}
+		});		
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script type="text/javascript" src="../../static/js/baseUrl.js" ></script>
+		<style type="text/css">
+			.main{
+				margin: auto;
+			    width: 700px;
+			    height: 600px;
+		    	margin-top: 20px;
+			    border: 2px solid;
+			    border-color: #fc650c;
+			}
+			.shop_name{
+			    border: 1px solid;
+			    border-left: none;
+			    border-top: none;
+			    border-right: none;
+			    border-bottom-color: #fc650c;
+			    border-bottom-width: 3px;
+			}
+			.shop_name h5{
+				text-align: center;
+    			font-size: 25px;	
+    			margin-bottom: 20px;
+    			margin-top: 20px;
+			}
+			.o_title{
+				font-size: 18px;
+		    	color: black;		
+		        margin-left: 10px;
+			}
+			.comment_block{
+			    margin-top: 20px;
+			    margin-left: 100px;
+				color: #707070;
+			}
+			.comment_input{
+			    width: 250px;
+			    padding: 0.3em;
+			    font-size: 16px;
+			    color: #bdbdbd;				
+			}
+			.m_label{
+				float: left;
+			}
+			.order_details{
+    			width: 500px;
+			}
+			.order_btn{
+				text-align: center;
+    			margin-top: 50px;
+			}
+			.order_btn input{
+			    width: 200px;
+			    padding: 0.4em;
+			    border: 1px solid;
+			    border-color: #ff8e4c;
+			    background-color: #ff8e4c;
+			    color: white;
+			}
+			.select_type{
+				width: 264px;
+    			padding: 0.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="#">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="main">
+			<div class="shop_name">
+				<h5 id="shop_name"></h5>
+			</div>
+			<div class="line"></div>
+			<div class="order_massage">
+				<span class="o_title">请填写预约信息：</span>
+				<div class="order_time comment_block">
+					<span class="label">预约时间：</span>
+					<input class="comment_input" type="text" name="orderTime" id="orderTime" placeholder=""/>
+				</div>
+				<div class="people_num comment_block">
+					<span class="label">预约人数：</span>
+					<input class="comment_input" type="text" name="peopleNum" id="orderNum" placeholder=""/>					
+				</div>
+				<div class="order_type comment_block">
+					<span class="label">选择类型：</span>
+					<select id="type" class="select_type">
+				          <option>请选择</option>
+				          <option id="o_type" v-for="data in datas" v-bind:value="data.id" >{{data.name}}</option>
+				    </select>
+				</div>
+				<div class="order_type comment_block">
+					<span class="m_label">其他说明：</span>
+					<div class="order_content">
+						<textarea class="order_details" id="orderDetails" class="details" name="" rows="7" ></textarea>
+					</div>			
+				</div>
+				<div class="order_btn">
+					<input onclick="addOrder()" type="button" value="点击预约" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		var getUrl =window.location.search;
+		var shopId=getUrl.substring(9);
+		type(4,"#type");
+		showBase();
+		function showBase(){
+			$.ajax({
+				type:"get",
+				url:url+"shop/findByShopId",
+				async:true,
+				dataType:"json",
+				data:{
+					shop_id:shopId,
+				},success:function(data){
+					console.log(data);
+					$("#shop_name").html(data.data[0].shop_name);
+				},error:function(data){
+				
+				}
+			});		
+		}
+		function addOrder(){
+			$.ajax({
+				type:"post",
+				url:url+"order_info/addOrder",
+				async:true,
+				dataType:"json",
+				data:{
+					token:localStorage["token"],
+					shop_id:shopId,
+					order_details:$("#orderDetails").val(),
+					order_time:$("#orderTime").val(),
+					order_num:$("#orderNum").val(),
+					order_type:$("#o_type").attr("value"),
+				},success:function(data){
+					console.log(data);
+					alert("预约已发送，请耐心等待！")
+					window.location.href="my_order_list.html";
+				}
+			});
+		}
+		
+	</script>
+</html>

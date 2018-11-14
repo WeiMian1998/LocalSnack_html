@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script type="text/javascript" src="../../static/js/baseUrl.js" ></script>
+		<style type="text/css">
+			.main{
+	    		color: #111;
+	 			width: 960px;
+    			margin: 0 auto 10px;			
+			}
+			.mycomment_wrap{
+		    	margin: 19px 0 20px 0;		
+			}
+			.section{
+	    		width: 710px;
+    			margin-right: 10px;	
+    		    float: left;	
+    		   	min-height: 1px;
+    		    margin: 0 auto;	
+			}
+			.block{
+				margin-bottom: 20px;	
+		    	padding-bottom: 20px;
+    			border-bottom: 1px dashed #e4e4e4;
+			}
+			.comment_form h2{
+				position: relative;
+				height: 40px;
+			    margin-bottom: 20px;
+			    padding: 0 15px;
+			    line-height: 40px;
+			    color: #999;
+			    background: #f3f3f3;
+			}
+			.comment_form h2 strong{
+				font-size: 1.2em;
+			    font-weight: normal;
+			    color: #C00;
+			    margin-right: 5px;		
+			}
+			.score_block{
+			    margin-bottom: 13px;	
+			    padding-left: 0;
+				margin-top: 10px;
+			}
+			.label_required{
+			    margin-top: 10px;	
+			    padding-right: 4px;
+    			width: 84px;
+			}
+			.label_required em{
+	    		position: relative;
+			    left: -5px;
+			    width: 8px;
+			    overflow: hidden;	
+				top: 3px;
+			    margin: 0 1px;
+			    color: #C00;		
+			}
+			.my_imput{
+			    width: 180px;
+			    padding: 0.3em;
+			    padding-left: 20px;		
+			}
+			.taste_block{
+				margin-bottom: 13px;	
+			    padding-left: 0;
+				margin-top: 10px;
+			}
+			.environment_block{
+				margin-bottom: 13px;	
+			    padding-left: 0;
+				margin-top: 10px;
+			}
+			.service_block{
+				margin-bottom: 13px;	
+			    padding-left: 0;
+				margin-top: 10px;
+			}						
+			.avg_block{
+				margin-bottom: 13px;	
+			    padding-left: 0;
+				margin-top: 100px;				
+			}
+			.avg_block .label_required{
+				margin-left: 32px;
+			}
+			.taste_block .label_required{
+				margin-left: 32px;
+			}
+			.environment_block .label_required{
+				margin-left: 32px;
+			}
+			.service_block .label_required{
+				margin-left: 32px;
+			}
+			.content_block{
+		    	padding-left: 0;
+		    	margin-bottom: 11px;	
+			    position: relative;
+	    		zoom: 1;
+	    		z-index: 1000;	
+			}
+			.form_textarea{
+			    width: 598px;
+			    margin-right: 5px;
+			    font-family: Tahoma,Geneva,sans-serif;
+			    border: 1px solid #CCC;
+			    padding: 2px;				
+			}
+			.new_windows{
+				float: right;
+			}
+			.upload_form{
+			    margin-top: -20px;
+			    z-index: 999;
+			    margin-left: 100px;
+			    padding-bottom: 3px;
+			    height: inherit;
+			    position: relative;
+			    zoom: 1;
+			}
+				.avatar_photo_img{
+					font-size: 12px;
+				    width: 120px;
+				    height: 150px;
+				    margin-right: 20px;
+				    margin-left: 100px;
+				    margin-top: 20px;
+				    text-align: center;
+				    color: #999;
+				}
+			.avatar_photo_img img{
+				width: 180px;
+			    height: 180px;
+			    margin-bottom: 15px;
+			    display: none;
+			}
+			.btn_block{
+	    		margin-left: 200px;
+    			margin-top: 40px;			
+			}
+			.updateBtn{
+			    width: 130px;
+			    padding: 0.3em;
+			    border: 1px solid;
+			    border-color: #ff7b2e;
+			    background-color: #ff7b2e;
+			    color: white;	
+			    margin-left: 10px;
+			    margin-right: 10px;			
+			}
+			.deleteBtn{
+			    width: 130px;
+			    padding: 0.3em;
+			    border: 1px solid;
+			    border-color: #d1d1d1;
+			    background-color: #d1d1d1;
+			    color: white;		
+			    margin-left: 10px;
+			    margin-right: 10px;		
+			}
+			.noImg{
+			    display: block;
+			    margin-left: 100px;
+			    margin-top: 40px;
+			    color: red;
+			    background-color: #eaeaea;
+			    width: 120px;
+			    padding-top: 50px;
+			    height: 70px;
+			    padding-right: 10px;
+			    padding-left: 20px;
+			   display: none;
+			}
+		</style>
+		</script>
+	</head>
+	<body>
+		<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>		
+		
+		<div class="main">
+			<div class="mycomment_wrap">
+				<div class="section">
+					<div class="block comment_form">
+						<h2 id="shop_name"></h2>
+						<div class="score_block">
+							<span class="label_required">
+								总体评价：
+								<em>*</em>
+							</span>
+							<input id="my_score" class="my_imput" type="text" name="my-score" id="my-score" value="" />
+						</div>
+						<div class="taste_block">
+							<span class="label_required">
+								口味：
+							<em>*</em>
+							</span>
+							<input id="taste" class="my_imput" type="text" name="my-score" id="my-score" value="" />
+						</div>
+						<div class="environment_block">
+							<span class="label_required">
+								环境：
+							<em>*</em>								
+							</span>
+							<input id="environment" class="my_imput" type="text" name="my-score" id="my-score" value="" />							
+						</div>
+						<div class="service_block">
+							<span class="label_required">
+								服务：
+							<em>*</em>								
+							</span>
+							<input id="service" class="my_imput" type="text" name="my-score" id="my-score" value="" />							
+						</div>
+						<div class="content_block">
+							<span class="label_required" style="margin-left: 32px;">
+								评价：
+							<em>*</em>	
+							</span>
+							<div class="new_windows">
+								<textarea id="my_content" class="form_textarea" rows="7" placeholder="亲，菜品的口味如何，环境怎么样，服务满意吗？"></textarea>								
+							</div>
+							<div class="clear"></div>
+						</div>
+						
+						<div class="upload_pic">
+							<span class="label">
+								上传图片：
+							</span>
+							<div class="upload_form">
+								<form id="form-add">
+									<input id="upload_img" class="sc"  type="file" name="file"  ><br>
+								</form>
+								<button type="button"  onclick="submitFunction()">提交</button>			
+							</div>
+							<div id="haveImg" class="avatar_photo_img">
+								<img id="food_img" src="">
+							</div>
+							<div id="noImg" class="noImg">未上传任何图片</div>
+						</div>
+						
+						<div class="avg_block">
+							<span class="label_required">
+								人均：
+							<em>*</em>								
+							</span>
+							<input id="avg" class="my_imput" type="text" name="my-score" id="my-score" value="" />								
+						</div>
+						
+						<div class="btn_block">
+							<input onclick="updateReview()" class="updateBtn" type="button" name="updateReview" id="updateReview" value="更新点评" />
+							<input onclick="deleteReview()" class="deleteBtn" type="button" name="updateReview" id="deleteReview" value="删除点评" />
+						</div>
+					</div>
+					<div class="form_block">
+						
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="clear">
+				
+			</div>
+		</div>
+		
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>		
+	</body>
+	<script>
+		var getUrl =window.location.search;
+		var userId=getUrl.substring(9);
+		var shopId = localStorage["shop_id"];
+		var num = 0;
+		showBase();
+		function showBase(){
+			/*$("#my_name").html(localStorage["userName"]);*/
+				$.ajax({
+					type:"get",
+					url:url+"shop/findByShopId",
+					async:true,
+					dataType:"json",
+					data:{
+						shop_id:shopId,
+					},success:function(data){
+						console.log(data);
+						$("#shop_name").html(data.data[0].shop_name);
+					},error:function(data){
+						
+					}
+				});		
+				
+				$.ajax({
+					type:"get",
+					url:url+"review_info/findMyReview",
+					async:true,
+					dataType:"json",
+					data:{
+						user_id:userId,
+						shop_id:shopId,
+					},success:function(data){
+						console.log(data);
+						localStorage.setItem("review_id",data.data[0].review_id);
+						localStorage.setItem("r_user_id",data.data[0].user_id);
+						$("#avg").val(data.data[0].people_avg);
+						$("#environment").val(data.data[0].environment);
+						$("#taste").val(data.data[0].taste);
+						$("#service").val(data.data[0].service);
+						$("#my_score").val(data.data[0].review_score);
+						$("#my_content").val(data.data[0].review_content);
+						showImg();
+					},error:function(data){
+						
+					}
+				});	
+		}		
+function showImg(){
+				$.ajax({
+					type:"post",
+					url:url+"img_info/showImg",
+					async:true,
+					dataType:"json",
+					data:{
+						review_id:localStorage["review_id"],
+						shop_id:shopId,
+					},success:function(data){
+						console.log(data);
+						if(data.data.length == 0){
+							num = 0;
+							$("#noImg").css("display","block");
+							$("#haveImg").css("display","none");
+							return;
+						}else{
+							num = 1;
+						}
+						$("#food_img").attr("src",data.data[0].review_img);
+						$("#food_img").css("display","block");
+							localStorage.setItem("img_id",data.data[0].img_id);
+
+					},error:function(data){
+					}
+				});	
+}
+	function updateReview(){
+				$.ajax({
+					type:"post",
+					url:url+"review_info/updateReview",
+					async:true,
+					dataType:"json",
+					data:{
+						review_id:localStorage["review_id"],
+						review_score:$("#my_score").val(),
+						review_content:$("#my_content").val(),
+						taste:$("#taste").val(),
+						environment:$("#environment").val(),
+						service:$("#service").val(),
+						avg:$("#avg").val(),
+					},success:function(data){
+						console.log(data);
+						alert("更新成功");
+						history.go(0); 						
+					},error:function(data){
+					}
+				});		
+				if(num == 1){
+					alert(1);
+					$.ajax({
+						type:"post",
+						url:url+"img_info/updateImg",
+						async:true,
+						dataType:"json",
+						data:{
+							img_id:localStorage["img_id"],
+							img:$("#food_img").attr("src"),
+						},success:function(data){
+							console.log(data);
+						},error:function(data){
+						}
+					});				
+				}else{
+					alert(0)
+					$.ajax({
+						type:"post",
+						url:url+"img_info/addImg",
+						async:true,
+						dataType:"json",
+						data:{
+							review_id:localStorage["review_id"],
+							shop_id:shopId,
+							img:$("#food_img").attr("src"),
+						},success:function(data){
+							console.log(data);
+						},error:function(data){
+						}
+					});							
+				}
+		
+	}
+		
+		
+	function submitFunction() {
+	    //这里唯一需要注意的就是这个form-add的id
+	    var formData = new FormData($("#form-add")[0]);
+	    $.ajax({
+	        //接口地址
+	        url: 'http://127.0.0.1:8080/upload' ,
+	        type: 'POST',
+	        data: formData,
+	        async: false,
+	        cache: false,
+	        contentType: false,
+	        dataType:"json",
+	        processData: false,
+	        success: function (data) {
+	            alert(data);
+				$("#noImg").css("display","none");
+				$("#haveImg").css("display","block");
+				$("#food_img").css("display","block");
+	            $("#food_img").attr("src",url+"/resource/"+data.info);
+	            
+				console.log(data);
+	        },
+	        error: function (returndata) {
+	        	alert("后台出错");
+	           //请求异常的回调
+	           // modals.warn("网络访问失败，请稍后重试!");
+	        }
+	    });
+	}		
+			function deleteReview(){
+				if (!confirm("确认要删除？")) {
+		            window.event.returnValue = false;
+		        }else{
+					$.ajax({
+						type:"post",
+						url:url+"review_info/deleteReview",
+						async:true,
+						dataType:"json",
+						data:{
+							review_id:localStorage["review_id"],
+						},success:function(data){
+							console.log(data);
+							alert("删除成功!")
+							window.location.href=document.referrer;
+						},error:function(data){
+							
+						}
+					});					        	
+		        }
+
+			}
+	
+	</script>
+</html>

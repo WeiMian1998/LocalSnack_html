@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personal_massage.css">
+	<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script type="text/javascript" src="../../static/js/baseUrl.js" ></script>
+
+</head>
+<body>
+	<div class="header-container">
+		<div class="top-nav">
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<div class="left_list">
+			<span class="personal_title">个人中心</span>
+			<ul class="personal_ul">
+				<li style="background-color: #ff7b2e;">
+					<a class="change change_a" href="personal_massage.html"><span class="personal_nav_name">我的信息</span></a>
+				</li>
+
+				<li>
+					<a class="change" href="personal_head.html"><span class="personal_nav_name">我的头像</span></a>
+				</li>
+				<li>
+					<a class="change" href="personal_collection.html"><span class="personal_nav_name">我的收藏</span></a>
+				</li>
+				<li>
+					<a class="change" href="my_order_list.html"><span class="personal_nav_name">我的预约</span></a>
+				</li>
+			</ul>
+		</div>
+		<div class="right_content">
+			<div class="right_title">
+				<span>我的信息</span>
+			</div>
+
+			<div class="user_setting_warp">
+					<form>
+						<ul>
+							<li>
+								<div class="tit">
+									<label>昵称：</label>
+								</div>
+								<div class="f-part">
+									<input id="user_name" class="edit_input" type="text" name="userName" >
+								</div>
+							</li>
+
+							<li>
+								<div class="tit">
+									<label>性别：</label>
+								</div>
+								<div class="f-part f-iradio">
+									<input id="man" class="radio-plain" class="edit_input" type="radio" value="1" name="userSex" >
+									<label for>男</label>
+									<input id="woman"  class="radio-plain" class="edit_input" type="radio"value="0" name="userSex"  >
+									<label for>女</label>
+								</div>
+							</li>
+
+							<li>
+								<div class="tit">
+									<label>常居地：</label>
+								</div>
+								<div class="f-part">
+									<input id="address" class="edit_input" type="text" name="address"   placeholder="未填写">
+								</div>
+							</li>
+
+							<li>
+								<div class="tit">
+									<label>手机号码：</label>
+								</div>
+								<div class="f-part">
+									<input id="telphone" class="edit_input" type="text" name="telephone"  placeholder="未填写">
+								</div>
+							</li>
+
+							<li>
+								<div class="tit">
+									<label>真实姓名：</label>
+								</div>
+								<div class="f-part">
+									<input id="realName" class="edit_input" type="text" name="realName"   placeholder="未填写">
+								</div>
+							</li>
+
+							<li>
+								<div class="tit">
+									<label>自我介绍：</label>
+								</div>
+								<div class="f-part">
+									<textarea id="intrduce" class="tar_plain" cols rows="5" placeholder="简单介绍下自己，让更多Dper了解你吧~~(50字以内)" name="introduce"></textarea>
+								</div>
+							</li>
+						</ul>
+						<div class="btn_box">
+							<input onclick="update()" class="btn" type="button" name="submit" value="保存修改">
+						</div>
+					</form>		
+			</div>
+		</div>
+
+	</div>
+
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+	is_shopping();
+	function getVal(){
+	$("#user_name").val(localStorage["userName"]);
+	if(localStorage["address"] == "undefined" || localStorage["address"] == ""){
+		$("#address").val("");
+	}else{
+		$("#address").val(localStorage["address"]);
+	}
+	if(localStorage["telphone"] == "undefined" || localStorage["telphone"] == ""){
+		$("#telphone").val("");
+	}else{
+		$("#telphone").val(localStorage["telphone"]);
+	}
+	
+	if(localStorage["realName"] == "undefined" || localStorage["realName"] == ""){
+		$("#realName").val("");
+	}else{
+		$("#realName").val(localStorage["realName"]);
+	}
+	if(localStorage["intrduce"] == "undefined" || localStorage["intrduce"] == ""){
+		$("#intrduce").html("");
+	}else{
+		$("#intrduce").html(localStorage["intrduce"]);
+	}
+	if(localStorage["sex"] == "1"){
+		$("#man").attr("checked","checked");  
+	}else if(localStorage["sex"] == "0"){
+		$("#woman").attr("checked","checked");  
+	}
+	
+	}
+	getVal();
+	
+/*	var chkObjs=null; 
+	var obj=document.getElementsByName("userSex")
+	for (var i=0;i<obj.length;i++){ //遍历Radio 
+	if(obj[i].checked)
+		chkObjs=obj[i].value; 
+	} 
+	alert(chkObjs);*/
+	
+	function update(){
+		var userName = $("#user_name").val();
+		var address = $("#address").val();
+		var telphone = $("#telphone").val();
+		var realName = $("#realName").val();
+		var intrduce = $("#intrduce").val();
+		//获取性别的value
+		var chkObjs=null; 
+		var obj=document.getElementsByName("userSex")
+		for (var i=0;i<obj.length;i++){ //遍历
+		if(obj[i].checked)
+			chkObjs=obj[i].value; 
+		} 
+		
+		$.ajax({
+			type:"post",
+			url:url+"/user/updateUser",
+			dataType:"json",
+			async:true,
+			data:{
+				user_name:userName,
+				address:address,
+				real_name:realName,
+				introduce:intrduce,
+				telphone:telphone,
+				token:localStorage["token"],
+				sex:chkObjs,
+			},success:function(data){
+				console.log(data);
+				localStorage.setItem("token",data.data.token);
+				localStorage.setItem("userName",data.data.userName);
+				localStorage.setItem("address",data.data.address);
+				localStorage.setItem("telphone",data.data.telphone);
+				localStorage.setItem("realName",data.data.realName);
+				localStorage.setItem("intrduce",data.data.introduce);
+				localStorage.setItem("sex",data.data.sex);
+				alert("修改成功!");
+				window.location.href="personal_massage.html";
+			}
+		});
+	}
+	
+</script>
+</html>

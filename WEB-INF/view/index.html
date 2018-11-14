@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>首页</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/index.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	    <script type="text/javascript" language="javascript" src="../../static/js/jquery.dotdotdot.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<div class="header-container">
+		<div class="top-nav">
+
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a onclick="toPresion()" id="username" target="_blank" class="item left-split username J-user-trigger undline" href="javascript:void(0)"></a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="logo-input" class="logo-input food-conf">
+			<div class="logo-input-container clearfix">
+				<div class="search-bar">
+					<input id="showKeyword" class="search_input" type="text" name="search-input" placeholder="搜索商户名、地址等">
+
+					<input  onclick="findByKeyword()" class="search_submit" type="submit" name="submit" value="搜索美食">
+
+					<p class="search_hot">大家都在搜：
+						<a href="showShop.html?shop_id=16">牛排</a>
+						<a href="showShop.html?shop_id=15">火锅</a>
+						<a href="showShop.html?shop_id=18">日本料理</a>
+						<a href="showShop.html?shop_id=14">川菜</a>
+						<a href="showShop.html?shop_id=17">烧烤</a>
+						<a href="showShop.html?shop_id=10">私房菜</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->	
+	<!-- 中间内容 -->
+	<div class="main">
+		<div class="colmain">
+			<div class="modebox feautres_topics">
+				<div class="feautres">
+					<div class="pic_switch">
+						<img src="https://op.meituan.net/oppkit_pic/pc_food_index_banner/6960361bc90df7a5a3a3fddce56714bb.jpg">
+					</div>
+					<div class="content">
+						<h2>
+							<a onclick="document.hippo.ext({action:'click'}).mv('module','2_PcChannelFeaturedContent')" target="_blank" href="#">杭城新店榜vol.4</a>
+						</h2>
+						<p>
+							 一大波新店也如雨后春笋在杭州开业 抖音网红水蜜桃冰淇淋、于文文代言的少女系奶茶、樱花北海道冰淇淋...... 哎呀，又要月半了
+							 <span class="reason"></span>
+							 <span class="reason"></span>
+							 ...
+							 <a onclick="document.hippo.ext({action:'click'}).mv('module','2_PcChannelFeaturedContent')" title="" href="http://s.dianping.com/topic/35690664" target="_blank">[全文]</a>
+						</p>
+						<ul>
+							<li>
+								<a onclick="" target="_blank" href="#">[小编推荐] 【记19】【初夏】位居江南六大古镇之一，尽管喧嚣...</a>
+							</li>
+							<li>	
+								<a onclick="" target="_blank" href="#">[话题精选] 【记19】【初夏】年接待香游客达1622万，浙江...</a>
+							</li>
+							<li>
+								<a onclick="" target="_blank" href="#">[社区热帖] 【初夏】山林之乐幽且闲，画圣聊居云半间。</a>
+							</li>
+							<li>
+								<a onclick="" target="_blank" href="#">[达人推荐] 【初夏】夏日里，用一种轻松的方式爬长城</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="topics" id="shop-rank">
+					<div class="title">
+						<h4>餐厅排行榜</h4>
+						<a class="more" target="_blank" href="#">更多</a>
+					</div>
+<!--					<div class="tabs">
+						<a class="tab current" title="" href="javascript:" target="_blank" onclick="pageTracker._trackPageview('dp_home_food_shoplist_new_1_hangzhou');">人气</a>|
+						<a class="tab" title="" href="javascript:" target="_blank" onclick="pageTracker._trackPageview('dp_home_food_shoplist_new_1_hangzhou');">口味</a>|
+						<a class="tab" title="" href="javascript:" target="_blank" onclick="pageTracker._trackPageview('dp_home_food_shoplist_new_1_hangzhou');">环境</a>
+					</div>-->
+					<div class="wrap">
+						<div class="item news_list current" data-index="0">
+							<ul id="hot">
+								<li v-for="data in datas">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id] target="_blank">{{data.shop_name}}</a>
+								</li>
+							</ul>
+							<a class="more" target="_blank" href="">更多人气餐厅</a>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="clear">
+					
+				</div>
+			</div>
+
+			<div class="modebox recent_hot" id="discover-food">
+				<div class="title">
+					<h3>发现美食</h3>
+				</div>
+
+				<div class="tabs">
+					<a onclick="showDiv1()" class="tab current" href="javascript:void(0)">超人气的西餐</a>
+					|
+					<a onclick="showDiv2('#rl')" class="tab current" href="javascript:void(0)">超赞的日料</a>
+					|
+					<a onclick="showDiv3('#sk')" class="tab current" href="javascript:void(0)">味道很好的烧烤</a>
+					|
+					<a onclick="showDiv4('#hg')" class="tab current" href="javascript:void(0)">热辣十足的火锅</a>
+					|
+				</div>
+
+				<div class="wrap">
+					<div id="div1" class="pic_list current item">
+						<a onclick="toShowShop(16)" target="_blank" class="more" href="javascript:void(0)">更多西餐</a>
+						<ul id="xc" class="fxms">
+							<li v-for="data in datas">
+								<a v-bind:href=["shop.html?shop_id="+data.shop_id]>
+									<img class="img_hot" alt v-bind:src="data.shop_image">
+								</a>
+								<p class="name">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id]>{{data.shop_name}}</a>
+								</p>
+								<p class="comm">
+									<span>4.5</span>
+									<a href="#">12000封热评</a>
+								</p>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+
+ 					<div id="div2" class="pic_list current item">
+						<a onclick="toShowShop(18)" target="_blank" class="more" href="javascript:void(0)">更多日料</a>
+						<ul id="rl" class="fxms">
+							<li v-for="data in datas">
+								<a v-bind:href=["shop.html?shop_id="+data.shop_id]>
+									<img class="img_hot" alt v-bind:src="data.shop_image">
+								</a>
+								<p class="name">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id]>{{data.shop_name}}</a>
+								</p>
+								<p class="comm">
+									<span>4.5</span>
+									<a href="#">12000封热评</a>
+								</p>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</div> 
+					
+- 					<div id="div3" class="pic_list current item">
+						<a onclick="toShowShop(17)" target="_blank" class="more" href="javascript:void(0)">更多烧烤</a>
+						<ul id="sk" class="fxms">
+							<li v-for="data in datas">
+								<a v-bind:href=["shop.html?shop_id="+data.shop_id]>
+									<img class="img_hot" alt v-bind:src="data.shop_image">
+								</a>
+								<p class="name">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id]>{{data.shop_name}}</a>
+								</p>
+								<p class="comm">
+									<span>4.5</span>
+									<a href="#">12000封热评</a>
+								</p>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</div>
+
+					<div id="div4" class="pic_list current item">
+						<a onclick="toShowShop(15)" target="_blank" class="more" href="javascript:void(0)">更多火锅</a>
+						<ul id="hg" class="fxms">
+							<li v-for="data in datas">
+								<a v-bind:href=["shop.html?shop_id="+data.shop_id]>
+									<img class="img_hot" alt v-bind:src="data.shop_image">
+								</a>
+								<p class="name">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id]>{{data.shop_name}}</a>
+								</p>
+								<p class="comm">
+									<span>4.5</span>
+									<a href="#">12000封热评</a>
+								</p>
+							</li>
+							<div class="clear"></div>
+						</ul>
+					</div> 
+
+				</div>
+
+
+				<div class="clear"></div>
+			</div>
+			<div class="modebox flallow_dp">
+				<div class="title">
+					<h3>最新点评</h3>
+				</div>
+
+				<div class="flaldp_list">
+					<ul id="newReview">
+						<li v-for="data in datas">
+							<div class="pic_txt">
+								<a target="_blank" class="pic" href="">
+									<img v-bind:href=["shop.html?shop_id="+data.shop_id] v-bind:src="data.shop_image">
+								</a>
+								<h6>
+									<a target="_blank" v-bind:href=["shop.html?shop_id="+data.shop_id]>
+										{{data.shop_name}}
+									</a>
+								</h6>
+								<p class="gray">
+									标签：
+									<a target="_blank" href="">杭帮菜</a>
+									<a target="_blank" href="">{{data.name}}</a>
+								</p>
+							</div>
+							<div class="flaldp_review">
+
+								<i>&nbsp</i>
+								<p>
+									<a class="blue" target="_blank" v-bind:href=["personal_sc.html?user_id="+data.user_id]>{{data.user_name}}</a>
+									 {{data.review_time}}点评：
+								</p>
+								<p>{{data.review_score}}分</p>
+								<p id="reviewContent" class="tips">
+									{{data.review_content}}
+									<a v-bind:onclick=["toReview("+data.shop_id+","+data.user_id+")"] target="_blank" class="gray" href="javascript:void(0)">[全文]</a>
+								<!--v-bind:href=["review_show.html?user_id="+data.user_id+"&&shop_id="+data.shop_id]-->
+								</p>
+							</div>
+						</li>
+						<div class="clear"></div>
+					</ul>	
+				</div>
+
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="colaside">
+			<div class="block nav_box">
+				<div class="title">
+					<h1>杭州美食</h1>
+				</div>
+				<ul class="nav_col">
+					<li class="nc_li">
+						<div class="nc_item list_business">
+							<h4>地区</h4>
+							<ul id="area" class="nc_list">
+								<li v-for="data in datas">
+									<a v-bind:href=["showShop.html?shop_id="+data.id] v-bind:data-id="data.id">{{data.name}}</a>
+								</li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</li>
+
+					<li class="nc_li">
+						<div class="nc_item list_business">
+							<h4>菜系</h4>
+							<ul id="cuisine" class="nc_list">
+								<li v-for="data in datas"><a v-bind:href=["showShop.html?shop_id="+data.id] v-bind:data-id="data.id">{{data.name}}</a></li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</li>
+
+					<li class="nc_li">
+						<div  class="nc_item list_business">
+							<h4>氛围</h4>
+							<ul id="air"  class="nc_list">
+								<li v-for="data in datas"><a v-bind:href=["showShop.html?shop_id="+data.id] v-bind:data-id="data.id">{{data.name}}</a></li>
+								<div class="clear"></div>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="clear"></div>
+	</div>
+	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<!-- footer -->
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+<script>	
+	//alert(localStorage["token"]);
+	is_shopping();
+	type(1,"#air");
+	type(3,"#cuisine");
+	type(2,"#area");
+	var userId="";
+	showNewReview("#newReview");
+	function toPresion(){
+		  window.location.href="personal_sc.html?user_id="+userId;
+	}
+	function findByKeyword(){
+	window.location.href="showShop.html?keyword="+$("#showKeyword").val();
+	}
+	function toShowShop(cc_id){
+		  window.location.href="personal_sc.html?user_id="+cc_id;
+	}
+	
+	function showNewReview(el){
+		$.ajax({
+			type:"get",
+			url:url+"review_info/showNewReview",
+			async:true,
+			dataType:"json",
+			data:{
+				
+			},success:function(data){
+				console.log(data);
+				for(var i = 0;i<data.data.length;i++){
+					var myDate = new Date();
+					var second = myDate.getMinutes();
+					var hour = myDate.getHours();
+					var day = myDate.getDate();
+					var month = myDate.getMonth()+1;
+					
+					var reviewHour = timestampToTime(data.data[i].review_time-0).substring(10,12);
+					var reviewDay = null;
+					var reviewSecond = null;
+					var reviewMonth = timestampToTime(data.data[i].review_time-0).substring(5,7);
+					var num = month - reviewMonth;
+					
+					if(timestampToTime(data.data[i].review_time-0).substring(9,10)==" "){
+						reviewDay = timestampToTime(data.data[i].review_time-0).substring(8,9);
+						reviewSecond =timestampToTime(data.data[i].review_time-0).substring(13,15);
+					}else{
+						reviewDay = timestampToTime(data.data[i].review_time-0).substring(8,10);
+						reviewSecond =timestampToTime(data.data[i].review_time-0).substring(14,16);
+					}
+					
+					if(month - reviewMonth == 1 && day-reviewDay <=3 ){
+						data.data[i].review_time =30+day-reviewDay+"天前";
+					}else if(day-reviewDay==0){
+						if(hour - reviewHour !=0){
+							data.data[i].review_time = hour - reviewHour+"小时前";
+						}else if(hour - reviewHour == 0 && second-reviewSecond <60){
+							data.data[i].review_time = second-reviewSecond + "分钟前"
+						}
+					}else{
+						data.data[i].review_time = day-reviewDay+"天前";
+					}
+					//alert( timestampToTime(data.data[i].review_time-0));
+				}
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});			
+	}
+	showHotShop("#hot")
+	function showHotShop(el){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showHotShop",
+			async:true,
+			dataType:"json",
+			data:{
+				
+			},success:function(data){
+				console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});					
+	}
+	function toReview(shopId,userId){
+		localStorage.setItem("shop_id",shopId);
+		window.location.href="review_show.html?user_id="+userId;
+	}
+	showDiv1("#xc");
+	function showDiv1(el){
+		$("#div1").css("display","block");
+		$("#div2").css("display","none");
+		$("#div3").css("display","none");
+		$("#div4").css("display","none");
+		$.ajax({
+			type:"get",
+			url:url+"shop/showHotByCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				cuisine_id:16,
+			},success:function(data){
+				//console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});					
+	}
+	function showDiv2(el){
+		$("#div1").css("display","none");
+		$("#div2").css("display","block");
+		$("#div3").css("display","none");
+		$("#div4").css("display","none");
+		$.ajax({
+			type:"get",
+			url:url+"shop/showHotByCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				cuisine_id:17,
+			},success:function(data){
+				//console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});				
+	}	
+	function showDiv3(el){
+		$("#div1").css("display","none");
+		$("#div2").css("display","none");
+		$("#div3").css("display","block");
+		$("#div4").css("display","none");
+		$.ajax({
+			type:"get",
+			url:url+"shop/showHotByCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				cuisine_id:17,
+			},success:function(data){
+				//console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});				
+	}	
+	function showDiv4(el){
+		$("#div1").css("display","none");
+		$("#div2").css("display","none");
+		$("#div3").css("display","none");
+		$("#div4").css("display","block");
+		$.ajax({
+			type:"get",
+			url:url+"shop/showHotByCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				cuisine_id:15,
+			},success:function(data){
+				//console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});				
+	}	
+	function showUser(){
+		$.ajax({
+			type:"get",
+			url:controllerUrl+"user_info/showUser",
+			async:true,
+			dataType:"json",
+			data:{
+				
+			},success:function(data){
+				console.log(data);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+</script>

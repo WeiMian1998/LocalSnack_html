@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/shop.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<style>
+			body{
+				    background: #f8f8f8;
+			}
+			.logo-input .logo-input-container .search-bar{
+				margin-left: 300px;
+			}
+			.review_detail {
+			    color: #333;
+			    background-color: #f6f6f6;
+			    width: 100%;
+			    -webkit-font-smoothing: antialiased;
+			    font-size: 12px;
+			}			
+			.review_detail_container{
+			    margin: 0 auto;
+			    width: 1190px;
+			    height: auto;
+			    font-size: 0;				
+			}
+			.review_detail_main{
+				display: inline-block;
+			    width: 870px;
+			    height: auto;
+			    margin-right: 10px;
+			    vertical-align: top;				
+			}
+			.review_shop_wrap{
+				position: relative;
+			    border: 1px solid #f0f0f0;
+			    background: #fff;
+			    margin-bottom: 10px;
+			    padding: 20px;				
+			}
+			.shop_info{
+				zoom:1;
+			}
+			.shop_name {
+			    float: left;
+			    font-size: 22px;
+			    height: 22px;
+			    line-height: 22px;
+			    margin-right: 10px;
+			}			
+			.rank_info{
+				font-size: 0;
+			    margin: 55px 0 10px;
+			    height: 16px;
+			    line-height: 16px;				
+			}
+			.reviews{
+			    display: inline-block;
+			    vertical-align: middle;
+			    font-size: 14px;
+			    color: #666;
+			    margin-right: 10px;				
+			}
+			.price{
+			    display: inline-block;
+			    vertical-align: middle;
+			    font-size: 14px;
+			    color: #666;
+			    margin-right: 10px;				
+			}
+			.score{
+	    		font-size: 0;	
+			    display: inline-block;
+			    vertical-align: middle;
+			    color: #666;
+			    margin-right: 10px;		
+			}
+			.item{
+				display: inline-block;
+		 	   vertical-align: middle;
+		   	 	font-size: 14px;
+		    	color: #666;
+		    	margin-right: 10px;				
+			}
+			.address_info{
+			    font-size: 14px;
+			    color: #666;
+			    width: 700px;
+			    line-height: 22px;
+			    word-break: break-all;
+			    word-wrap: break-word;		
+			    margin-bottom: 6px;		
+			}
+			.phone_info{
+				font-size: 14px;
+			    color: #666;
+			    width: 700px;
+			    line-height: 22px;
+			    word-break: break-all;
+			    word-wrap: break-word;				
+			}
+			.more{
+			    position: absolute;
+			    bottom: 20px;
+			    right: 20px;				
+			}
+			.more a{
+			    display: block;
+			    width: 120px;
+			    height: 34px;
+			    font-size: 16px;
+			    line-height: 34px;
+			    color: #fff;
+			    background-color: #ff794d;
+			    text-align: center;
+			    border-radius: 1px;	
+			    }
+			   .review_shop_wrap{
+					position: relative;
+				    border: 1px solid #f0f0f0;
+				    background: #fff;
+				    margin-bottom: 10px;
+				    padding: 20px;			    	
+			    }		
+			    .review_content{
+	    			padding-left: 80px;
+    				position: relative;		    	
+			    }
+			    .review_detail_wrap{
+					border: 1px solid #f0f0f0;
+				    background: #fff;
+				    margin-bottom: 10px;
+				    padding: 15px 20px;
+				    user-select: none;			    	
+			    }
+			    .dper_photo{
+				    position: absolute;
+				    left: 0;
+				    top: 0;
+				    display: block;
+				    width: 60px;
+				    height: 60px			    	
+			    }
+			    .dper_photo img{
+					border-radius: 30px;
+				    width: 100%;
+    				height: 100%;			    	
+			    }
+			    .dper_info{
+					font-size: 0;
+				    height: 14px;
+				    line-height: 14px;
+				    padding-top: 15px;			    	
+			    }
+			    .name{
+				    font-size: 14px;
+				    height: 14px;
+				    line-height: 14px;			    	
+			    }
+			    .review_rank{
+					font-size: 0;
+				    height: 13px;
+				    line-height: 13px;
+				    margin: 10px 0;			    	
+			    }
+			    .sml_rank{
+			    	width: 68px;
+			    }
+			    .review_rank .item{
+				    margin-left: 7px;
+				    font-size: 13px;
+				    height: 13px;
+				    line-height: 13px;
+				    color: #999;			    	
+			    }
+			    .review_words{
+				    font-size: 14px;
+				    line-height: 20px;
+				    word-break: break-all;
+				    word-wrap: break-word;			    	
+			    }
+			    .review_pictures{
+				    position: relative;
+				    margin-top: 10px;
+				    overflow: hidden;
+				    white-space: nowrap;			    	
+			    }
+			    .review_pictures ul{
+			     	font-size: 0;
+    				position: relative;   	
+			    }
+			    .review_pictures .item{
+				    display: inline-block;
+				    vertical-align: middle;
+				    width: 96px;
+				    height: 96px;
+				    margin: 5px 6px 0 0;			    	
+			    }
+			    .review_pictures .item a{
+	    			display: block;
+				    width: 100%;
+				    height: 100%;
+				    position: relative;	
+				    cursor: pointer;
+				    color: #333;	    	
+			    }
+				.review_detail img {
+				    width: 100%;
+				    height: 100%;	
+				}	
+				.misc_info{
+				    margin: 10px 0;
+				    overflow: hidden;
+				    color: #999;
+				    zoom: 1;					
+				}	 
+				.misc_info .time{
+				    float: left;
+				    font-size: 12px;
+				    margin-right: 15px;					
+				}  
+				 .misc_info .shop{
+				    float: left;
+				    font-size: 12px;
+				    margin-right: 15px;				 	
+				 }
+				 .actions{
+				    float: right;
+				    font-size: 12px;				 	
+				 }
+				.acions a{
+			    	color: #999;
+    				margin-left: 15px;		
+				}
+				.my_reply{
+    				padding: 10px 0 10px 80px;					
+				}
+ 				.my_reply h4 {
+				    font-size: 16px;
+				    height: 22px;
+				    line-height: 22px;	
+    			}
+    			.content{
+				    width: 100%;
+				    height: 100px;
+				    margin: 10px 0;
+				    font-size: 14px;
+				    line-height: 16px;
+				    word-break: break-all;
+				    word-wrap: break-word;
+				    border: 1px solid #e1e1e1;
+				    box-sizing: border-box;   				
+    			}		
+    			.publish_wrap{
+    				padding-bottom: 10px;
+    			}	
+    			.publish_wrap a{
+				    display: block;
+				    width: 80px;
+				    height: 34px;
+				    line-height: 34px;
+				    text-align: center;
+				    background-color: #ff794d;
+				    color: #fff;
+				    font-size: 16px;
+				    border-radius: 1px;    				
+    			}
+    			.shop_other_review_wrap{
+    	   	 		border: 1px solid #f0f0f0;
+				    background: #fff;
+				    margin-bottom: 10px;
+				    padding: 20px;			
+    			}
+    			.shop_other_review_wrap h4{
+				    font-size: 16px;
+				    height: 22px;
+				    line-height: 22px;
+				    padding-bottom: 10px;    				
+    			}
+    			.shop_other_review_wrap span{
+    				color:#999;
+    			}
+    			.shop_reviews{
+				    padding-left: 80px;
+				    overflow: hidden;
+				    user-select: none;    				
+    			}
+    			.shop_reviews ul li{
+				    position: relative;
+				    margin: 5px 0 10px;
+				    border-bottom: 1px solid #f0f0f0;    				
+    			}
+    			.shop_reviews ul li .dper_photo{
+				    position: absolute;
+				    left: -80px;
+				    top: 0;
+				    display: block;
+				    width: 60px;
+				    height: 60px;   				
+    			}
+				.c_dper_info {
+				    padding-top: 15px;
+				    font-size: 0;
+				    height: 14px;
+				    line-height: 14px;
+				}
+				.c_name{
+				    font-size: 14px;
+    				height: 14px;
+    				line-height: 14px;	
+				} 
+				.c_review_rank{
+					font-size: 0;
+				    height: 13px;
+				    line-height: 13px;
+				    margin: 10px 0;				
+				}   		
+				.c_review_words{
+				    font-size: 14px;
+				    line-height: 20px;
+				    word-break: break-all;
+				    word-wrap: break-word;					
+				}
+				.c_misc_info{
+					margin: 10px 0 15px;
+				    overflow: hidden;
+				    color: #999;
+				    zoom: 1;					
+				}	
+				.c_time{
+				    float: left;
+				    font-size: 12px;
+				    margin-right: 15px;		
+				}
+				.c_actions{
+				    float: right;
+    				font-size: 12px;	
+				}
+				.c_actions a{
+				    color: #999;
+    				margin-left: 15px;	
+				}
+				.c_actions a:hover{
+				    color: red;
+				}				
+				.c_item{
+					margin-left: 7px;
+				    font-size: 13px;
+				    height: 13px;
+				    line-height: 13px;
+				    color: #8c8c8c;
+				}
+				.net_replay{
+					padding: 10px 0 10px 80px;					
+				}
+				.net_replay h4{
+				    font-size: 16px;
+				    height: 22px;
+				    line-height: 22px;
+				    padding-bottom: 10px;
+				    border-bottom: 1px solid #f0f0f0;					
+				}
+				.list li{
+					position: relative;
+				    padding: 10px 0;
+				    border-bottom: 1px solid #f0f0f0;					
+				}
+				.photo_aside{
+				    position: absolute;
+				    display: block;
+				    width: 40px;
+				    height: 40px;
+				    left: -50px;
+				    top: 10px;			
+				}
+				.photo_aside img{
+					border-radius: 20px;
+				    width: 100%;
+				    height: 100%;					
+				}
+				.cm_dper_info{
+	    			font-size: 0;
+				    height: 22px;
+				    line-height: 22px;				
+				}
+
+				.cm_dper_info .name{
+				    font-size: 16px;
+				    height: 22px;
+				    line-height: 22px;
+				    color: #5260c2;					
+				}
+				.cm_dper_info .name:hover{
+				    color: red;					
+				}
+				.replay_words{
+				    margin: 7px 0;
+				    font-size: 14px;
+				    line-height: 20px;
+				    word-break: break-all;
+				    word-wrap: break-word;					
+				}
+				.cm_misc_info{
+				    overflow: hidden;
+				    color: #999;
+				    zoom: 1;			
+				    display: block;	
+				}
+				.c_date{
+	    			float: left;
+				    font-size: 12px;
+				    margin-right: 10px;				
+				}
+				.cm_actions{
+					float: right;
+				    font-size: 12px;					
+				}
+				.cm_actions a{
+				    color: #999;
+				    margin-left: 15px;					
+				}
+				.toUserName{
+					color:  #5260c2;
+				}
+				.to_content{
+					width: 500px;
+				}
+				.c_btn{
+				    width: 100px;
+				    height: 35px;
+				    border: 1px solid #ff833a;
+				    background-color: #ff8e4c;
+				    color: white;
+				    margin-left: 20px;					
+				}
+				.to_replay{
+					display: none;
+				}
+				.replay:hover{
+					color:red;
+				}
+		</style>
+	</head>
+	<body>
+	<div class="header-container">
+		<div class="top-nav">
+
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html"></a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="#">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="logo-input" class="logo-input food-conf">
+			<div class="logo-input-container clearfix">
+<!--				<a target="_blank" class="city J-city">
+					<span class="map-icon"></span>
+					<span>杭州</span>
+					<i class="icon i-arrow"></i>
+				</a>-->
+				<div class="search-bar">
+					<input class="search_input" type="text" name="search-input" placeholder="搜索商户名、地址、菜名等">
+
+					<input onclick="findByKeyword()" class="search_submit" type="submit" name="submit" value="搜索美食">
+
+					<p class="search_hot">大家都在搜：
+						<a href="showShop.html?shop_id=16">牛排</a>
+						<a href="showShop.html?shop_id=15">火锅</a>
+						<a href="showShop.html?shop_id=18">日本料理</a>
+						<a href="showShop.html?shop_id=14">川菜</a>
+						<a href="showShop.html?shop_id=17">烧烤</a>
+						<a href="showShop.html?shop_id=10">私房菜</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="review_detail">
+		<div class="review_detail_container">
+			<div class="review_detail_main">
+				<div class="review_shop_wrap">
+					<div class="shop_info">
+						<h1 id="shop_name" class="shop_name"></h1>
+					</div>
+					<div class="rank_info">
+						<span id="review_score" class="mid_rank_stars">4.5</span>
+						<span class="reviews">479条评论</span>
+						<span id="avg" class="price">人均：132元</span>
+						<span class="score">
+							<span id="taste" class="item">口味：8.5</span>
+							<span id="enviroment" class="item">环境：9.2</span>
+							<span id="service" class="item">服务：9.1</span>
+						</span>
+					</div>
+					<div id="shop_address" class="address_info">
+					</div>
+					<div id="shop_tel" class="phone_info">
+					</div>
+					<div class="more">
+						<a onclick="toShop()" href="javascript:void(0)">查看店家详情</a>
+					</div>
+				</div>
+				
+				<div class="review_detail_wrap">
+					<div class="review_content">
+						<a class="dper_photo" href="">
+							<img id="user_img" src="" />
+						</a>
+						<div class="main_review">
+							<div class="dper_info">
+								<a id="user_name" class="name"></a>
+							</div>
+							<div class="review_rank">
+								<span id="user_score">评分：4.5</span>
+								<span class="score">
+									<span id="user_taste" class="item">口味：8.5</span>
+									<span id="user_environment" class="item">环境：9.2</span>
+									<span id="user_service" class="item">服务：9.1</span>									
+									<span id="user_avg" class="item">人均: 95元</span>		
+								</span>
+							</div>
+							<div id="user_content" class="review_words">
+							</div>
+							<div class="review_pictures">
+								<img id="my_img" class="item"  src=""/>
+							</div>
+<!--							<div class="review_pictures">
+								<ul>
+									<li class="item">
+										<a>
+											<img src="../../static/img/15878740-1d170886ce8e5bcc52045787d81e5414.jpg" />
+										</a>
+									</li>
+									<li class="item">
+										<a>
+											<img src="../../static/img/15878740-1d170886ce8e5bcc52045787d81e5414.jpg" />
+										</a>
+									</li>
+									<li class="item">
+										<a>
+											<img src="../../static/img/15878740-1d170886ce8e5bcc52045787d81e5414.jpg" />
+										</a>
+									</li>
+								</ul>
+							</div>-->
+							<div class="misc_info">
+								<span id="review_time" class="item">2018-05-27 20:00</span>
+								<span class="acions">
+									<a class="praise" href="">赞</a>
+									<a class="favor" href="#">举报</a>
+								</span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="my_reply">
+						<h4>我想回应</h4>
+						<textarea id="replay_content" class="content" rows="6"></textarea>
+						<div class="publish_wrap">
+							<a onclick="addReplay()" class="publish_btn" href="#">发表</a>
+						</div>
+					</div>
+					
+					<div class="net_replay">
+						<h4>网友回应</h4>
+						<div class="list">
+							<ul id="new_replay">
+								<li v-for="data in datas">
+									<a class="photo_aside">
+										<img v-bind:src="data.head" />
+									</a>
+									<div class="main_replay">
+										<div class="cm_dper_info">
+											<a class="name" href="">{{data.user_name}}</a>
+										</div>
+										<div class="replay_words">
+											<span v-if="data.replay_state == '2'" id="son">
+											</span>
+											<span v-if="data.replay_state == '1'" id="son">
+												回应
+												<a class="toUserName" href="">{{data.toUserName}}：</a>
+											</span>
+											{{data.replay_content}}
+										</div>
+										<div  class="cm_misc_info">
+											<span class="c_date">
+												{{data.replay_time}}
+											</span>
+											<span class="cm_actions">
+												<p v-bind:onclick=['cm_replay('+data.user_id+','+data.replay_id+')'] class="replay" >回应</p>
+											</span>
+										</div>
+									</div>
+									<div v-bind:id=['to_replay'+data.replay_id] class="to_replay">
+										<textarea v-bind:id=['replay_user_content'+data.replay_id]  class=" to_content" rows="6"></textarea>
+										<input v-bind:onclick=['replayAgain('+data.user_id+','+data.replay_id+')'] class="c_btn" type="button" value="回应" />
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="shop_other_review_wrap">
+					<h4>更多用户评论<span>(479)</span></h4>
+					<div class="shop_reviews">
+						<ul id="more_review">
+							<li v-for="data in datas">
+								<a class="dper_photo">
+									<img id="m_user_img"  v-bind:src="data.head" />
+								</a>
+								<div class="c_main_review">
+									<div class="c_dper_info">
+										<a id="m_user_name" class="c_name">{{data.user_name}}</a>
+									</div>
+									<div class="c_review_rank">
+										<span id="m_user_score">综合评分：{{data.review_score}}</span>
+										<span class="c_score">
+											<span id="m_user_taste" class="c_item">口味：{{data.taste}}</span>
+											<span id="m_user_environment" class="c_item">环境：{{data.environment}}</span>
+											<span id="m_user_service" class="c_item">服务：{{data.service}}</span>																			
+										</span>
+									</div>
+									<div class="c_review_words">
+										<span id="m_user_content">
+											{{data.review_content}}
+										</span>
+									</div>
+									<div class="c_misc_info">
+										<span id="m_user_time" class="c_time">
+											{{data.review_time}}
+										</span>
+										<span class="c_actions">
+											<a class="c_praise" href="">赞</a>
+											<a class="c_praise" v-bind:href=['review_show.html?user_id='+data.user_id]>回应</a>
+											<a class="c_favor" href="#">举报</a>
+										</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>			
+	</body>
+	<script>
+		var getUrl =window.location.search;
+		var userId=getUrl.substring(9);
+		//alert(userId);
+		var shopId = localStorage["shop_id"];
+		var thisUrl="http://127.0.0.1:8020/localSnack/WEB-INF/view/review_show.html?user_id="+userId;
+		showBase();
+		function toShop(){
+			var shopUrl = "shop.html?shop_id="+shopId;
+			window.location.href=shopUrl;
+		}
+		function showBase(){
+			$("#my_name").html(localStorage["userName"]);
+				$.ajax({
+					type:"get",
+					url:url+"shop/findByShopId",
+					async:true,
+					dataType:"json",
+					data:{
+						shop_id:shopId,
+						
+					},success:function(data){
+						console.log(data);
+						$("#shop_name").html(data.data[0].shop_name);
+						$("#shop_address").html(data.data[0].office_hours);
+						$("#shop_tel").html(data.data[0].shop_telphone);
+					},error:function(data){
+						
+					}
+				});		
+				
+				$.ajax({
+					type:"get",
+					url:url+"review_info/findReviewByUserId",
+					async:true,
+					dataType:"json",
+					data:{
+						user_id:userId,
+						
+					},success:function(data){
+						console.log(data);
+						localStorage.setItem("review_id",data.data[0].review_id);
+						localStorage.setItem("r_user_id",data.data[0].user_id);
+						showUserImg(localStorage["review_id"],shopId);
+						$("#user_name").html(data.data[0].user_name);
+						$("#user_avg").html("人均："+data.data[0].people_avg);
+						$("#user_environment").html("环境："+data.data[0].environment);
+						$("#user_taste").html("口味："+data.data[0].taste);
+						$("#user_service").html("服务："+data.data[0].service);
+						$("#user_score").html("综合评分："+data.data[0].review_score);
+						$("#user_img").attr("src",data.data[0].head);
+						$("#user_content").html(data.data[0].review_content);
+						$("#review_time").html(timestampToTime(data.data[0].review_time-0));
+					},error:function(data){
+						
+					}
+				});		
+		}
+		
+		ReviewList(shopId,"#more_review");
+		function ReviewList(shopId,el){
+		$.ajax({
+			type:"get",
+			url:url+"review_info/ReviewList",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shopId,
+			},success:function(data){
+				console.log(data);
+				for(var i = 0;i<data.data.length;i++){
+					data.data[i].review_time = timestampToTime(data.data[i].review_time-0);
+					if(data.data[i].token == localStorage["token"]){
+						$("#addreview_wrapper").css("display","none");
+						$("#myreview").css("display","block");
+						$("#my_content").html(data.data[i].review_content);
+						$("#my_first_head").html(data.data[i].head);
+						$("#my_name").html(data.data[i].user_name);
+						$("#my_sroce").html(data.data[i].review_score);
+						$("#my_content").html(data.data[i].review_content);
+						$("#my_avg").html(data.data[i].people_avg);
+					}
+				}
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+				
+			}
+		});		
+	}
+	function timestampToTime(timestamp) {
+	        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+	        Y = date.getFullYear() + '-';
+	        M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+	        D = date.getDate() + ' ';
+	        h = date.getHours() + ':';
+	        m = date.getMinutes() + ':';
+	        s = date.getSeconds();
+	        return Y+M+D+h+m+s;
+	  }
+
+function addReplay(){
+	$.ajax({
+		type:"post",
+		url:url+"replay_info/addReplay",
+		async:true,
+		dataType:"json",
+		data:{
+			token:localStorage["token"],
+			replay_content:$("#replay_content").val(),
+			review_id:localStorage["review_id"],
+			to_user_id:localStorage["r_user_id"],
+		},success:function(data){
+			console.log(data);
+			alert("回应成功")
+		}
+	});
+}
+function cm_replay(userId,replayId){
+	$("#to_replay"+replayId).css("display","block");
+}
+function replayAgain(userId,replayId){
+	$.ajax({
+		type:"post",
+		url:url+"replay_info/addReplayAgain",
+		async:true,
+		dataType:"json",
+		data:{
+			token:localStorage["token"],
+			replay_content:$("#replay_user_content"+replayId).val(),
+			review_id:localStorage["review_id"],
+			to_user_id:userId
+		},success:function(data){
+			console.log(data);
+			alert("回复成功");
+			window.location.href=thisUrl;
+			
+		}
+	});
+}
+replayList("#new_replay")
+//alert(localStorage["review_id"]);
+	function replayList(el){
+		$.ajax({
+			type:"get",
+			url:url+"replay_info/replayList",
+			async:true,
+			dataType:"json",
+			data:{
+				review_id:localStorage["review_id"],
+			},success:function(data){
+				console.log(data);
+				for(var i=0;i<data.data.length;i++){
+					data.data[i].replay_time = timestampToTime(data.data[i].replay_time-0);
+				}
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+			},error:function(data){
+			}
+		});		
+	}
+	
+	function showUserImg(reviewId,shopId){
+		$.ajax({
+			type:"get",
+			url:url+"img_info/showImg",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shopId,
+				review_id:reviewId,
+			},success:function(data){
+				console.log(data);
+				if(data.data.length == 0){
+					$("#my_img").css("display","none");
+				}else{
+					$("#my_img").attr("src",data.data[0].review_img);
+				}
+			},error:function(data){
+				
+			}
+		});			
+	}
+	function findByKeyword(){
+		window.location.href="showShop.html?keyword="+$("#showKeyword").val();
+	}
+</script>

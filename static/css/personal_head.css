@@ -1,0 +1,45 @@
+		.con{
+			padding: 30px;
+		}
+		.col-hints{
+			padding-bottom: 25px;	
+		}
+		.col-hints span{
+			margin-right: 10px;
+		    display: inline-block;
+		    overflow: hidden;
+		    zoom: 1;
+		    vertical-align: middle;	
+		    font-size: 14px;
+		}
+		.avatar-box h5{
+			margin-bottom: 10px;
+		    font-size: 14px;
+		    font-weight: normal;
+		}
+		.avatar_photo_img{
+			font-size: 12px;
+		    width: 120px;
+		    height: 120px;
+		    margin-right: 20px;
+		    margin-left: 40px;
+		    text-align: center;
+		    color: #999;
+		}
+		.avatar_photo_img img{
+			width: 120px;
+		    height: 120px;
+		    margin-bottom: 15px;
+		}
+		.btn_box{
+			padding: 10px 0 10px 140px;
+			margin-left: -90px;
+			margin-top: 80px;
+		}
+		.btn{
+			width: 100px;
+		    height: 40px;
+		    border: 1px solid;
+		    color: white;
+		    background-color: #ff7b2e;
+		}

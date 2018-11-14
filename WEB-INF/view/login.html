@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personal_collection.css">
+	<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script src="../../static/js/baseUrl.js"></script>
+	<style>
+		body{
+    		background-color: #e6e3e0;
+		}
+		input{
+			outline: none;
+		}
+		.main{
+		    width: 700px;
+		    height: 460px;
+		    margin: auto;
+		    border: 1px solid;
+		    border-radius: 20px;
+		    background-color: white;
+		    margin-top: 50px;
+		    margin-bottom: 50px;
+			box-shadow: #666464 3px 3px 10px 5px;
+		}
+		.login_input{
+			width: 300px;
+		    height: 30px;
+		    border: 2px solid;
+		    border-radius: 5px;
+		    margin-left: 190px;
+		    padding: 0.5em;
+		    font-size: 14px;
+		    color: #d2d2d2;
+		    margin-top: 10px;
+		    margin-bottom: 10px;
+		}
+		.login_submit{
+		    width: 250px;
+		    height: 30px;
+		    background-color: #ff8025;
+		    border: 1px solid;
+		    border-color: #ff8025;
+		    color: white;
+		    border-radius: 3px;
+		    margin-left: 220px;
+		    margin-top: 20px;
+		}
+		.main_content h5{
+			text-align: center;
+			font-size: 30px;
+    		margin-bottom: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header-container">
+		<div class="top-nav">
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<a class="item write-dp undline" href="login.html">登录</a>
+					<span class="seprate">|</span>
+					<a  class="item J-my-center-trigger undline" href="register.html">注册</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main">
+			<div class="main_content">
+				<h5>欢迎</h5>
+			</div>
+			<input id = "username" style="margin-top: 50px;" class="login_input" type="text" placeholder="请输入账号" />
+		
+			<input id = "password" class="login_input" type="password" placeholder="请输入密码"  />
+		
+			<input onclick="login()" class="login_submit" type="button" value="登录" />
+	</div>	
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+	islogin();
+	if(localStorage["account"] != null){
+		$("#username").val(localStorage["account"]);
+		$("#password").val(localStorage["password"]);
+	}
+	function nologin(){
+		if(localStorage["token"]==""){
+			alert("请登录");
+			window.location.href="login.html";
+		}
+	}
+	function login(){
+		var username = $("#username").val();
+		var password = $("#password").val();
+		$.ajax({
+			type:"post",
+			url:"http://localhost:8080/user/login",
+			async:true,
+			dataType:"json",
+			data:{
+				account:username,
+				password:password,
+			},success:function(data){
+				if(data.info == "account or password failed"){
+					alert("账号或密码错误")
+					return;
+				}
+				console.log(data);
+				localStorage.clear();
+				localStorage.setItem(["userId"],data.data.userId);
+				localStorage.setItem("token",data.data.token);
+				localStorage.setItem("userName",data.data.userName);
+				localStorage.setItem("address",data.data.address);
+				localStorage.setItem("telphone",data.data.telphone);
+				localStorage.setItem("realName",data.data.realName);
+				localStorage.setItem("intrduce",data.data.introduce);
+				localStorage.setItem("sex",data.data.sex);
+				localStorage.setItem(["head"],data.data.head);
+				localStorage.setItem(["headImage"],data.data.head);
+				localStorage.setItem(["isShopping"],data.data.isShopping);
+				window.location.href="index.html";
+			},error:function(data){
+				
+			}
+		});
+	}
+
+</script>
+</html>

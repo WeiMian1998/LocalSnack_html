@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personal.css">
+	<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script src="../../static/js/baseUrl.js"></script>
+</head>
+<body>
+	<!-- header -->
+	<div class="header-container">
+		<div class="top-nav">
+
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html"></a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+
+	<div class="wrapper_personal">
+ 		<div class="header-box">
+			<div class="pic">
+				<a href="#"><img id="myImg"  src=""></a>
+			</div>
+
+			<div class="txt">
+				<div class="tit">
+					<h2 id="userName" class="name"></h2>
+					<div class="edit" id="toEditMassage">
+						<a href="personal_massage.html">[编辑资料]</a>
+					</div>
+					<div class="nav">
+						<ul>
+							<li class="cur">
+								<a onclick="toCollection()" href="javascript:void(0)">收藏</a>
+							</li>
+							<li class="cur">
+								<a onclick="toReview()" href="javascript:void(0)" style="background-color:#ff8400 ;border-color: #ff840;color:white;">点评</a>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-box home-container">
+			<div class="main">
+				<div class="modebox p-term-list">
+					<div class="pic-txt">
+
+						<div id="noOrder" class="noOrder">
+							<img style="width: 280px;" src="../../static/img/haveNoContent.jpg" />
+						</div>
+
+						<ul id="reviewList" class="reviewList">
+							<li v-for="data in datas">
+								<div class="txt J_rptlist">
+									<div class="main_tit">
+										<h6>
+											<a class="main_tit_a" href="">{{data.shop_name}}</a>
+										</h6>
+									</div>
+									<div class="txt-c">
+										<div class="mode-tc addres">
+											<p class="col-exp">
+												{{data.shop_address}}
+											</p>
+										</div>	
+										<div class="mode-tc comm-rst">
+											<span>{{data.review_score}}分</span>
+										</div>	
+										<div class="mode-tc comm-entry">
+											{{data.review_content}}
+										</div>	
+										<div class="mode-tc info">
+											<span class="col-exp">
+												发表于{{data.review_time}}
+											</span>
+											<span class="col-right">
+<!--												<a class="aheart" href="">
+													<span class="heart-name">赞</span>
+												</a>-->
+												<em class="line">|</em>
+												<a v-bind:onclick=["toUserReview("+data.shop_id+","+data.user_id+")"] href="javascript:void(0)">回应</a>
+												<em class="line">|</em>
+												<a href="">举报</a>
+											</span>
+										</div>						
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+-<script>
+	is_shopping();
+	var getUrl =window.location.search;
+	var userId=getUrl.substring(9);	
+	if(userId == ""){
+		$("#userName").html(localStorage["userName"]);
+		$("#myImg").attr("src",localStorage["headImage"]);
+	}
+	
+	showReview("#reviewList");
+	function showReview(el){
+		if(userId == ""){
+			$.ajax({
+				type:"get",
+				url:url+"review_info/showReviewList",
+				async:true,
+				dataType:"json",
+				data:{
+					user_id:localStorage["userId"],
+				},success:function(data){
+					if(data.data.length == 0){
+						$("#noOrder").css("display","block");
+					}
+					$("#reviewList").css("display","block");
+					console.log(data);
+					for(var i = 0;i<data.data.length;i++){
+						data.data[i].review_time = timestampToTime(data.data[i].review_time-0);
+					}
+					new Vue({
+						el:el,
+						data:{
+							datas:data.data
+						}
+					})
+				},error:function(data){
+					
+				}
+			});					
+		}else{
+			$.ajax({
+				type:"get",
+				url:url+"review_info/showReviewList",
+				async:true,
+				dataType:"json",
+				data:{
+					user_id:userId,
+				},success:function(data){
+					console.log(data);
+					$("#reviewList").css("display","block");
+					$("#userName").html(data.data[0].user_name);
+					$("#myImg").attr("src",data.data[0].head);
+					$("#toEditMassage").css("display","none");
+					for(var i = 0;i<data.data.length;i++){
+						data.data[i].review_time = timestampToTime(data.data[i].review_time-0);
+					}
+					new Vue({
+						el:el,
+						data:{
+							datas:data.data
+						}
+					})
+				},error:function(data){
+					
+				}
+			});					
+		}
+		
+	}
+	
+	function toCollection(){
+		window.location.href="personal_sc.html?user_id="+userId;
+	}
+	function toReview(){
+		window.location.href="personal.html?user_id="+userId;
+	}
+	function toUserReview(shopId,userId){
+		localStorage.setItem("shop_id",shopId);
+		window.location.href="review_show.html?user_id="+userId;
+	}
+</script>
+</html>

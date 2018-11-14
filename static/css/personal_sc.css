@@ -1,0 +1,186 @@
+			.header-box{
+			position: relative;
+			width: 732px;
+			height: 120px;
+			margin-top: 40px;
+			padding: 10px 0 10px 10px;
+			margin-bottom: 10px;
+			background-color: white;
+			zoom:1;
+			margin-left: auto;
+    		margin-right: auto;
+		}
+		.pic{
+			float: left;
+			margin-right: 10px;
+		}
+		.pic img{
+			width: 120px;
+			height: 120px;
+		}
+		.txt{
+			display: table-cell;
+		    width: 2000px;
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		    word-break: break-all;
+		}
+		.tit{
+			padding: 5px 0 0 10px;
+		}
+		.name{
+			font-size: 25px;
+			font-family: "Microsoft YaHei";
+			float: left;
+			margin-right: 5px;
+		}
+		.edit{
+			float: left;
+			padding-top: 23px;
+		}
+		.edit a{
+			position: relative;
+			top:5px;
+			color: #0079f6;
+		}
+		.nav{
+			position: absolute;
+		    width: 300px;
+		    bottom: 0;
+		    background-color: #fff;	
+		}
+		.nav ul{
+			width: 820px;
+	    	padding: 10px 0 10px;
+	   	 	zoom: 1;	
+		}
+		 .nav li {
+		    float: left;
+		    margin-right: 5px;
+		}	
+		.cur a{
+		    width: 90px;
+		    height: 21px;
+		    text-align: center;
+		    padding: 7px 9px 7px 10px;
+		    border: 1px solid #eaeaea;
+		    font-size: 14px;
+		    float: left;
+		    vertical-align: middle;	
+		    border-radius: 2px;		
+		    font-weight: bold;
+    		text-decoration: none;
+    		background-color: #fff;
+		    border-color: #ff8400;
+		    color: #ff8400;
+
+		}
+		.cur a:hover{
+    		background-color: #ff8400;
+		    border-color: #ff8400;
+		    color: #fff;
+		}
+		.main{
+			box-shadow: rgba(225,246,254,0.9) 1px 0 1px;
+		    float: left;
+		    width: 807px;
+		    padding-bottom: 50px;
+		    min-height: 625px;
+		    margin-left: 324px;
+
+		}
+		.modebox{
+		    padding: 10px 25px;	
+		}
+		.favor-box {
+		    padding-top: 0;
+		    margin-top: -11px;
+		}
+		.favor-list {
+		    padding-bottom: 20px;
+		}
+		.pic-txt {
+		    zoom: 1;
+		}
+		.odd{
+			background-color: #eaeaea;
+			position: relative;
+    		padding: 18px 20px;	
+    		margin-bottom: 10px;
+		}
+		.txt{
+			display: table-cell;
+		    width: 2000px;
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		    word-break: break-all;			
+		}
+		.tit{
+		    margin-bottom: 10px;	
+		}
+		.txt-c{
+			width: 100%;
+		    table-layout: fixed;
+		    word-break: break-all;
+		    word-wrap: break-word;	
+		}
+		.txt-c p{
+			margin-top: 0px;
+			margin-bottom: 0px;
+			margin-left: 10px;
+			font-size: 14px;
+		}
+		.tit h6{
+			font-size: 14px;
+			margin-right: 7px;
+			display: inline-block;
+		    overflow: hidden;
+		    zoom: 1;
+		    vertical-align: middle; 
+		    margin-top: 10px;
+    		margin-bottom: 5px;  
+		}
+		.mode-tc{
+			padding-bottom: 5px;
+		}
+		.city{
+			margin-right: 5px;	
+		}
+		.tel {
+		    margin-left: 8px;
+		}
+		.info {
+		    margin: 4px 0 0;
+		    padding-bottom: 0;
+		}	
+		.col-exp {
+		    color: #999;
+		    margin-left: 10px;
+		    font-size: 14px;
+		}	
+		.line {
+		    padding: 0 10px;
+		    color: #eaeaea;
+		}	
+		.isdelete{
+			font-size: 12px;
+			color: #0ab0ff;
+			float: right;
+			display: none;
+		}
+		.haveCollection{
+			font-size: 12px;
+			color: #0ab0ff;
+			float: right;
+			display: none;			
+		}
+		.isdelete:hover{
+			text-decoration: underline;
+			div.contentEditable=true;
+		}
+		.tit_a{
+			color: #085fff;
+		}
+		.edit a:hover{
+			text-decoration: underline;
+		}

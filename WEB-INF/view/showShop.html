@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/index.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<title></title>
+		<style type="text/css">
+			.shop_wrap{
+				margin-left: 200px;
+				margin-top: 10px;
+				width: 950px;
+				margin-right: 10px;
+			}
+			.content{
+				border: 1px solid #f0f0f0;
+			    background-color: #fff;
+			    margin-bottom: 10px;
+			    border-bottom: none;				
+			}
+			.shop_list{
+			    position: relative;
+		    	z-index: 9;
+		    	margin-bottom: -1px;		
+		    	padding-top: 0;	
+			}
+			.show_shop{
+		   		position: relative;
+			    float: left;
+			    zoom: 1;
+			    padding-left: 210px;
+			    width: 723px;
+			    min-height: 118px;	
+			    padding: 15px 15px 38px 20px;
+			    border-bottom: 1px solid #f0f0f0;
+			    display: block;	
+			}
+			.pic{
+				margin-left: 0px;
+			    left: 20px;
+			    top: 20px;		
+			   	float: left;
+    			margin-right: 16px;
+			}
+			.pic img{
+	    		width: 170px;
+			    height: 127px;
+			    border: 1px solid #f0f0f0;			
+			}
+			.txt{
+				position: relative;
+			    min-height: 88px;
+			    line-height: 26px;			
+			}
+			.tit a{
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			    vertical-align: middle;	
+			    display: inline-block;
+			    white-space: nowrap;
+			    word-wrap: normal;			
+			}
+			.tit h4{
+				margin-top: 0px;
+    			margin-bottom: 10px;
+				float: left;
+			    margin-right: 5px;
+			    font-size: 16px;
+			    max-width: 380px;	
+        		color: #333;	
+        		margin-left: 5px;		
+			}
+			.sep{
+			    display: inline-block;
+			    margin: 0 5px;
+			    color: #e8e8e8;			
+			    font-style: normal;	
+			}
+			.tag_addr{
+			    line-height: 24px;
+			    color: #999;				
+			}
+			.addr{
+				margin-top: 10px;
+				display: inline-block;
+			    vertical-align: middle;
+			    max-width: 600px;
+			    margin-left: 5px;
+			    position: relative;
+			    top: -2px;				
+			}
+			.score{
+				color: #999;
+			    margin-left: 5px;
+			    font-size: 14px;
+			    margin-right: 10px;
+			}
+			.review_num{
+				font-size: 14px;
+				color: #999;
+			}
+			.people_avg{
+				font-size: 14px;
+				color: #999;
+			}
+			a:hover{
+				color: red;
+			}
+			h4:hover{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- header -->
+		<div class="header-container">
+			<div class="top-nav">
+	
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html"></a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+	
+			<div class="logo-input" class="logo-input food-conf">
+				<div class="logo-input-container clearfix">
+					<div class="search-bar">
+						<input class="search_input" type="text" name="search-input" placeholder="搜索商户名、地址等">
+	
+						<input onclick="findByKeyword()" class="search_submit" type="submit" name="submit" value="搜索美食">
+	
+						<p class="search_hot">大家都在搜：
+							<a href="showShop.html?shop_id=16">牛排</a>
+							<a href="showShop.html?shop_id=15">火锅</a>
+							<a href="showShop.html?shop_id=18">日本料理</a>
+							<a href="showShop.html?shop_id=14">川菜</a>
+							<a href="showShop.html?shop_id=17">烧烤</a>
+							<a href="showShop.html?shop_id=10">私房菜</a>
+						</p>
+					</div>
+				</div>
+			</div>
+	
+		</div>
+		
+		<div class="shop_wrap">
+			<div class="content">
+				<div class="shop_list">
+					<ul id="shopList">
+						<li v-for="data in datas" class="show_shop">
+							<div class="pic">
+								<a  v-bind:href=["shop.html?shop_id="+data.shop_id]>
+									<img v-bind:src="data.shop_image" />
+								</a>
+								<div class="clear"></div>
+							</div>
+							<div class="txt">
+								<div class="tit">
+									<a v-bind:href=["shop.html?shop_id="+data.shop_id]><h4>{{data.shop_name}}</h4></a>
+								</div>
+<!--								<div class="comment">
+									<a class="review_num" href="#">274条评论</a>
+									<em class="sep">|</em>
+									<span class="people_avg" href="#">人均：</span>
+								</div>-->
+								<div class="tag_addr">
+									<span class="addr">
+										{{data.shop_address}}
+									</span>
+								</div>
+							</div>
+							<div class="clear">
+								
+							</div>
+						</li>
+						<div class="clear"></div>
+					</ul>
+				</div>
+				<div class="clear">
+					
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+		<!-- footer -->
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		var getUrl =window.location.search;
+		if(getUrl.substring(9).length > 2){
+			var keyword=getUrl.substring(9);
+			showShop("#shopList");
+			 function showShop(el){
+				$.ajax({
+					type:"get",
+					url:url+"shop/findByShopName",
+					async:true,
+					dataType:"json",
+					data:{
+						keyword:getCharFromUtf8(keyword),
+					},success:function(data){
+						console.log(data);
+						new Vue({
+							el:el,
+							data:{
+								datas:data.data
+							}
+						})
+					},error:function(data){
+						
+					}
+				});				 	
+			 }
+		}else{
+			var number = getUrl.substring(9);
+			showDictionaryData("#shopList");
+			function showDictionaryData(el){
+				if(number <= 5){
+					$.ajax({
+						type:"get",
+						url:url+"shop/findByAirId",
+						async:true,
+						dataType:"json",
+						data:{
+							air_id:number,
+						},success:function(data){
+							console.log(data);
+							new Vue({
+								el:el,
+								data:{
+									datas:data.data
+								}
+							})
+						},error:function(data){
+							
+						}
+					});						
+				}else if(number >=9){
+					$.ajax({
+						type:"get",
+						url:url+"shop/findByCuisineId",
+						async:true,
+						dataType:"json",
+						data:{
+							cuisine_id:number,
+						},success:function(data){
+							console.log(data);
+							new Vue({
+								el:el,
+								data:{
+									datas:data.data
+								}
+							})
+						},error:function(data){
+							
+						}
+					});		
+				}else{
+					$.ajax({
+						type:"get",
+						url:url+"shop/findByAreaId",
+						async:true,
+						dataType:"json",
+						data:{
+							area_id:number,
+						},success:function(data){
+							console.log(data);
+							new Vue({
+								el:el,
+								data:{
+									datas:data.data
+								}
+							})
+						},error:function(data){
+							
+						}
+					});		
+				}				
+			}
+
+		}
+		
+		is_shopping();
+		function findByKeyword(){
+			window.location.href="showShop.html?keyword="+$("#showKeyword").val();
+		}
+	</script>
+</html>

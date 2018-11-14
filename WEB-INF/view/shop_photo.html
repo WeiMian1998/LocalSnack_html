@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personal_massage.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/set_shop.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<title></title>
+	</head>
+	<body>
+<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="#">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="wrapper">
+			<div class="left_list">
+				<span class="personal_title">商户管理</span>
+				<ul class="personal_ul">
+					<li>
+						<a class="change " href="MyShopping.html"><span class="personal_nav_name">商户信息</span></a>
+					</li>
+	
+					<li>
+						<a class="change " href="ShopUpdate.html"><span class="personal_nav_name">商户修改</span></a>
+					</li>
+					<li style="background-color: #ff7b2e;">
+						<a class="change change_a" href="personal_collection.html"><span class="personal_nav_name">商户相册</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right_content">
+				<div class="right_title">
+					<span>商户相册</span>
+				</div>
+	
+				<div class="user_setting_warp content_form">
+											
+				</div>				
+			</div>
+			</div>
+		</div>
+
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>		
+	</body>
+</html>

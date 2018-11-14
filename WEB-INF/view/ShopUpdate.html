@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personal_massage.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/set_shop.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<title>修改店铺</title>
+		<style>
+			.wrapper{
+				height: 100%;
+			}
+			.ant_row{
+				margin-left: -263px;
+			}
+			.content_form{
+				margin-top: -10px;
+			}
+			.add_input{
+				margin-left: 159px;
+			}
+			.c_img{
+				width: 200px;
+				display: none;
+			}
+			.c_c_io{
+				float: left;
+				margin-right:40px;
+				width: 210px;
+			}
+			.c_c_right{
+				float: right;
+			}
+			.no_find_img{
+				display: none;
+				margin-top: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="#">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="wrapper">
+			<div class="left_list">
+				<span class="personal_title">商户管理</span>
+				<ul class="personal_ul">
+					<li>
+						<a class="change " href="MyShopping.html"><span class="personal_nav_name">商户信息</span></a>
+					</li>
+	
+					<li style="background-color: #ff7b2e;">
+						<a class="change change_a" href="ShopUpdate.html"><span class="personal_nav_name">商户修改</span></a>
+					</li>
+					<li>
+						<a class="change" href="personal_collection.html"><span class="personal_nav_name">商户相册</span></a>
+					</li>
+					<li>
+						<a class="change" href="shop_order.html"><span class="personal_nav_name">预约管理</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right_content">
+				<div class="right_title">
+					<span>修改商户</span>
+				</div>
+	
+				<div class="user_setting_warp content_form">
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">商户名称</label>
+								</div>
+								<div class="c_input">
+									<input id="shop_name" class="ant_input" type="text" name="shopName" placeholder="请输入商户名称">
+								</div>
+							</div>
+							
+							<div id="cuisine" class="ant_row">
+								<div class="c_text">
+									<label class="c_title">菜系</label>
+								</div>
+								<div style="width: 500px;">
+									<div style="width: 80px;float: left;"  v-for="data in datas">
+										<input  type="checkbox" name="caixi" v-bind:value="data.id"/>
+										<label>{{data.name}}</label>
+									</div>
+								</div>
+							</div>
+							
+							<div id="air" class="ant_row">
+								<div class="c_text">
+									<label class="c_title">氛围</label>
+								</div>
+								<div style="width: 500px;">
+									<div style="width: 80px;float: left;"  v-for="data in datas">
+										<input id="c_c" type="checkbox" name="fenwei" v-bind:value="data.id" />
+										<label>{{data.name}}</label>
+									</div>
+								</div>
+							</div>
+							
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">所在地区</label>
+								</div>
+								<div class="parent">
+									<!--所在地区-->
+							      <select id="area">
+							          <option>请选择</option>
+							          <option v-bind:id=["area_op"+data.id] v-for="data in datas" v-bind:value="data.id" >{{data.name}}</option>
+							      </select>
+							    </div>
+							</div>
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">商户地址</label>
+								</div>
+								<div class="c_input">
+									<input id="detail_address" class="ant_input" type="text" name="shopName">
+								</div>
+							</div>
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">商户电话</label>
+								</div>
+								<div class="c_input">
+									<input id="shop_telphone" class="ant_input" type="text" name="shopName">
+								</div>
+							</div>
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">营业时间</label>
+								</div>
+								<div class="c_input">
+									<input id="officeHours" class="ant_input" type="text" name="shopName">
+								</div>
+							</div>
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">商户简介</label>
+								</div>
+								<div class="c_input">
+									<!-- <input class="ant_input" type="text" name="shopName" placeholder="请输入商户名称"> -->
+									<textarea id="content" class="tar_plain" cols rows="5"  name="introduce"></textarea>
+								</div>
+							</div>
+							<div class="ant_row">
+								<div class="c_text">
+									<label class="c_title">商户封面</label>
+								</div>
+								<div class="c_input">
+									<div class="c_c_io">
+										<img id="Shop_img" class="c_img" src=""/>
+										<p id="no_img" class="no_find_img" >未上传图片</p>
+									</div>
+									<div class="c_c_right">
+										<form id="form-add">
+											<input class="sc"  type="file" name="file"  ><br>
+										</form>
+										<button type="button"  onclick="submitFunction()">提交</button>											
+									</div>
+
+							</div>				
+				</div>				
+			</div>
+				<div class="foot">
+					<input onclick="updateShop()" class="add_input" type="button" name="button" value="保存修改">
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		is_shopping();
+		type(3,"#cuisine");
+		type(1,"#air");
+		type(2,"#area");
+		showMyShop();
+	
+	function show(data){
+			$("#shop_name").val(data.shop_name);
+			$("#shop_telphone").val(data.shop_telphone);
+			$("#detail_address").val(data.shop_address);
+			$("#officeHours").val(data.office_hours);
+			$("#content").val(data.content);
+			$("#area").val(data.area_id);
+			if(data.shop_image == null){
+				$("#no_img").css("display","block");
+			}else{
+				$("#Shop_img").css("display","block");
+				$("#Shop_img").attr("src",data.shop_image);
+			}
+			
+		}
+	
+	function showMyShop(){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showMyShop",
+			async:true,
+			dataType:"json",
+			data:{
+				token:localStorage["token"],
+			},success:function(data){
+				console.log(data);
+				localStorage.setItem("shop_id",data.data[0].shop_id);
+				show(data.data[0]);
+				showAir(data.data[0].shop_id);
+				showCuisine(data.data[0].shop_id);
+				showArea(data.data[0].shop_id);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showAir(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showAir",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				var chkObjs=null; 
+				var obj=document.getElementsByName("fenwei");
+				for (var i=0;i<obj.length;i++){ //遍历
+					for(var j = 0;j <data.data.length;j++){
+						if(obj[i].value == data.data[j].air_id)
+							$("[value="+obj[i].value +" ]").prop("checked",true);
+					}
+				}
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showCuisine(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				var chkObjs=null; 
+				var obj=document.getElementsByName("caixi");
+				for (var i=0;i<obj.length;i++){ //遍历
+					for(var j = 0;j <data.data.length;j++){
+						if(obj[i].value == data.data[j].cuisine_id)
+							$("[value="+obj[i].value +" ]").prop("checked",true);
+					}
+				}
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showArea(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showArea",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				$("#address").html(data.data[0].name);
+			},error:function(data){
+			}
+		});		
+	}
+	function updateShop(){
+/*		var v = document.getElementById("area").value*/
+		$.ajax({
+			type:"post",
+			url:url+"shop/updateBase",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:localStorage["shop_id"],
+				shop_name:$("#shop_name").val(),
+				shop_address:$("#detail_address").val(),
+				shop_telphone:$("#shop_telphone").val(),
+				office_hours:$("#officeHours").val(),
+				content:$("#content").val(),
+				area_id:document.getElementById("area").value,
+			},success:function(data){
+				console.log(data);
+				updateType();
+				alert("修改成功!")
+				window.location.href="ShopUpdate.html";
+			}
+		});
+	}
+	function updateType(){
+			var obj1 = document.getElementsByName("caixi");
+	    	var check_val_1 = "";
+	    	for(k in obj1){
+	        	if(obj1[k].checked)
+	            	check_val_1=check_val_1 + (obj1[k].value) + ",";
+	    	} 
+	    	var obj2 = document.getElementsByName("fenwei");
+	    	var check_val_2 = "";
+	    	for(k in obj2){
+	        	if(obj2[k].checked)
+	            	check_val_2 = check_val_2 +(obj2[k].value)+",";
+	    	}	
+			$.ajax({
+	    		type:"post",
+	    		url:url+"airInfo/updateAirInfo",
+	    		dataType:"json",
+	    		async:true,
+	    		data:{
+	    			shop_id:localStorage["shop_id"],
+	    			air_id:check_val_2,
+	    		},success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	    	$.ajax({
+	    		type:"post",
+	    		url:url+"cuisine/updateCuisine",
+	    		dataType:"json",
+	    		async:true,
+	    		data:{
+	    			shop_id:localStorage["shop_id"],
+	    			cuisine_id:check_val_1,
+	    		},success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	    	$.ajax({
+	    		type:"post",
+	    		url:url+"shop/updateImg",
+	    		dataType:"json",
+	    		async:true,
+	    		data:{
+	    			shop_id:localStorage["shop_id"],
+	    			shop_img:$("#Shop_img").attr("src"),
+	    		},success:function(data){
+	    			console.log(data);
+	    		}
+	    	});
+	}
+	function submitFunction() {
+	    //这里唯一需要注意的就是这个form-add的id
+	    var formData = new FormData($("#form-add")[0]);
+	    $.ajax({
+	        //接口地址
+	        url: 'http://127.0.0.1:8080/upload' ,
+	        type: 'POST',
+	        data: formData,
+	        async: false,
+	        cache: false,
+	        contentType: false,
+	        dataType:"json",
+	        processData: false,
+	        success: function (data) {
+	        	$("#Shop_img").css("display","block");
+	        	$("#no_img").css("display","none");
+	            $("#Shop_img").attr("src",url+"/resource/"+data.info);
+				console.log(data);
+	        },
+	        error: function (returndata) {
+	        	alert("后台出错");
+	           //请求异常的回调
+	           // modals.warn("网络访问失败，请稍后重试!");
+	        }
+	    });
+	}
+	</script>
+</html>

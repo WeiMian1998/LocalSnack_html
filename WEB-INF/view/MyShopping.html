@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的店铺</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personal_massage.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<style>
+			.p_list{
+				margin-bottom: 0px;
+			   	margin-top: 5px;
+			    letter-spacing: 1px;
+			    font-family: NSimSun;
+			}
+			.shop_img{
+				width: 160px;
+				display: block;
+			}
+			.wrapper{
+				height: 700px;
+			}
+			.tit{
+				    margin-left: 20px;
+			}
+			.not_find_a{
+				display: block;
+				margin-top: 6px;
+    			margin-bottom: 0px;
+    			margin-left: 148px;
+    			font-family: NSimSun;
+    			color: #8c8c8c;
+			}
+			.not_find_a:hover{
+    			color: #ff5200;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="wrapper">
+			<div class="left_list">
+				<span class="personal_title">商户管理</span>
+				<ul class="personal_ul">
+					<li style="background-color: #ff7b2e;">
+						<a class="change change_a" href="personal_massage.html"><span class="personal_nav_name">商户信息</span></a>
+					</li>
+	
+					<li>
+						<a class="change" href="ShopUpdate.html"><span class="personal_nav_name">商户修改</span></a>
+					</li>
+					<li>
+						<a class="change" href="shop_photo.html"><span class="personal_nav_name">商户相册</span></a>
+					</li>
+					<li>
+						<a class="change" href="shop_order.html"><span class="personal_nav_name">预约管理</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right_content">
+				<div class="right_title">
+					<span>商户信息</span>
+				</div>
+	
+				<div class="user_setting_warp">
+						<form>
+							<ul>
+								<li>
+									<div class="tit">
+										<label>商户名称：</label>
+									</div>
+									<div class="f-part">
+										<p id="shop_name" class="p_list"></p>
+									</div>
+								</li>
+								<li>
+									<div class="tit">
+										<label>菜系：</label>
+									</div>
+									<p id="cuisine" class="p_list"></p>
+								</li>
+								<li>
+									<div class="tit">
+										<label>氛围：</label>
+									</div>
+									<p id="air" class="p_list"></p>
+								</li>
+	
+								<li>
+									<div class="tit">
+										<label>所在地区：</label>
+									</div>
+									<p id="address" class="p_list"></p>
+								</li>
+	
+								<li>
+									<div class="tit">
+										<label>详细地址：</label>
+									</div>
+									<p id="detail_address" class="p_list"></p>
+								</li>
+	
+								<li>
+									<div class="tit">
+										<label>电话号码：</label>
+									</div>
+									<p id="shop_telphone" class="p_list"></p>
+								</li>
+	
+								<li>
+									<div class="tit">
+										<label>营业时间：</label>
+									</div>
+									<p id="officeHours" class="p_list"></p>
+								</li>							
+								<li>
+									<div class="tit">
+										<label>商户介绍：</label>
+									</div>
+									<p id="content" class="p_list"></p>
+								</li>
+								<li>
+									<div class="tit">
+										<label>评分：</label>
+									</div>
+									<p id="score" class="p_list">0</p>
+								</li>
+								<li>
+									<div class="tit">
+										<label>热度：</label>
+									</div>
+									<p id="hot" class="p_list">0</p>
+								</li>
+								<li>
+									<div class="tit">
+										<label>商户封面：</label>
+									</div>
+									<div>
+										<img id="shopImg" class="shop_img" src="" />
+										<a id="not_find_img" class="not_find_a" href="ShopUpdate.html">还未添加封面,点我添加!</a>
+									</div>
+								</li>
+							</ul>
+						</form>		
+				</div>
+			</div>
+	
+		</div>
+		
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		function show(data){
+			$("#shop_name").html(data.shop_name);
+			$("#shop_telphone").html(data.shop_telphone);
+			$("#detail_address").html(data.shop_address);
+			$("#officeHours").html(data.office_hours);
+			$("#content").html(data.content);
+			$("#shopImg").attr("src",data.shop_image);
+		if($("#shopImg").attr("src")==null  ||$("#shopImg").attr("src")=="" ){
+			$("#shopImg").css("display","none");
+			$("#not_find_img").css("display","block");
+		}else{
+			$("#shopImg").css("display","block");
+			$("#not_find_img").css("display","none");
+		}
+		}
+		showMyShop();
+
+		function showMyShop(){
+		$.ajax({
+			type:"get",
+			url:url+"/shop/showMyShop",
+			async:true,
+			dataType:"json",
+			data:{
+				token:localStorage["token"],
+			},success:function(data){
+				console.log(data);
+				show(data.data[0]);
+				showAir(data.data[0].shop_id);
+				showCuisine(data.data[0].shop_id);
+				showArea(data.data[0].shop_id);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showAir(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"/shop/showAir",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				var shopAir  = "[";
+				for(var i = 0;i<data.data.length;i++){
+					shopAir += data.data[i].name;
+					if(i != data.data.length-1)
+					shopAir +=",";
+				}
+				shopAir += "]";
+				$("#air").html(shopAir);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showCuisine(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"/shop/showCuisine",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				var shopCuisine  = "[";
+				for(var i = 0;i<data.data.length;i++){
+					shopCuisine += data.data[i].name;
+					if(i != data.data.length-1)
+					shopCuisine +=",";
+				}
+				shopCuisine += "]";
+				$("#cuisine").html(shopCuisine);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function showArea(shop_id){
+		$.ajax({
+			type:"get",
+			url:url+"/shop/showArea",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:shop_id,
+				
+			},success:function(data){
+				console.log(data);
+				$("#address").html(data.data[0].name);
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+
+
+</script>

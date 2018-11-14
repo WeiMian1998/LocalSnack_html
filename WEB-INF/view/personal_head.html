@@ -1,0 +1,171 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/personal_head.css">
+	<script src="../../static/js/jquery-1.9.0.min.js"></script>
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+	<script src="../../static/js/baseUrl.js"></script>
+
+</head>
+<body>
+	<div class="header-container">
+		<div class="top-nav">
+			<div class="top-nav-container clearfix">
+				<div class="group mini-logo">
+					<a target="_blank" class="item" href="index.html">当地小食</a>
+				</div>
+				<div class="group quick-menu">
+					<span>
+						<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+						<span class="seprate">|</span>
+					</span>
+					<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+					<span class="seprate">|</span>
+					<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+					<span class="seprate">|</span>
+					<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+					<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+					<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+					<span id="setShop_span" style="display: none;" class="seprate">|</span>
+					<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<div class="left_list">
+			<span class="personal_title">个人中心</span>
+			<ul class="personal_ul">
+				<li>
+					<a class="change" href="personal_massage.html"><span class="personal_nav_name">我的信息</span></a>
+				</li>
+				<li style="background-color: #ff7b2e;">
+					<a class="change" class="change_a" href="personal_head.html"><span class="personal_nav_name">我的头像</span></a>
+				</li>
+				<li>
+					<a class="change" href="personal_collection.html"><span class="personal_nav_name">我的收藏</span></a>
+				</li>
+				<li>
+					<a class="change" href="my_order_list.html"><span class="personal_nav_name">我的预约</span></a>
+				</li>
+			</ul>
+		</div>
+		<div class="right_content">
+			<div class="right_title">
+				<span>我的头像</span>
+			</div>
+
+			<div class="con">
+					<p class="col-hints">
+						<form id="form-add">
+							<input class="sc"  type="file" name="file"  ><br>
+						</form>
+						<button type="button"  onclick="submitFunction()">提交</button>
+						<span>
+							支持JPG、PNG、BMP格式的图片文件，文件大小小于5M
+						</span>
+					</p>	
+					<div class="avatar-box">
+						<div class="tit">
+							<h5>当前头像：</h5>
+						</div>
+						<div class="avatar_photo_img">
+							<img id="my_img" src="">
+							尺寸 120*120 像素
+						</div>
+						<div class="btn_box">
+							<input onclick="updateHead()"  class="btn" type="button" name="button" value="保存">
+						</div>
+						<div class="clear"></div>
+					</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="footer-container">
+		<div class="channel-footer">
+			<p class="links">
+				<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+				<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+				<div class="clear"></div>
+			</p>
+			<p class="rights">
+				<span>
+					©2017-2018 ddxs.com, All Rights Reserved.
+				</span>
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+	$("#my_img").attr("src",localStorage["headImage"]);
+	is_shopping();
+/*	$(".upload").click(function () {
+            $(".sc").click();
+        });*/
+	
+	function submitFunction() {
+	    //这里唯一需要注意的就是这个form-add的id
+	    var formData = new FormData($("#form-add")[0]);
+	    $.ajax({
+	        //接口地址
+	        url: 'http://127.0.0.1:8080/upload' ,
+	        type: 'POST',
+	        data: formData,
+	        async: false,
+	        cache: false,
+	        contentType: false,
+	        dataType:"json",
+	        processData: false,
+	        success: function (data) {
+	            $("#my_img").attr("src",url+"/resource/"+data.info);
+				console.log(data);
+	        },
+	        error: function (returndata) {
+	        	alert("后台出错");
+	           //请求异常的回调
+	           // modals.warn("网络访问失败，请稍后重试!");
+	        }
+	    });
+	}
+	function updateHead(){
+		$.ajax({
+			type:"post",
+			url:url+"/user/updateHead",
+			async:true,
+			dataType:"json",
+			data:{
+				token:localStorage["token"],
+				head_img:$("#my_img").attr("src"),
+			},success:function(data){
+				console.log(data);
+				localStorage.setItem("token",data.data.token);
+				localStorage.setItem("userName",data.data.userName);
+				localStorage.setItem("address",data.data.address);
+				localStorage.setItem("telphone",data.data.telphone);
+				localStorage.setItem("realName",data.data.realName);
+				localStorage.setItem("intrduce",data.data.introduce);
+				localStorage.setItem("sex",data.data.sex);
+				localStorage.setItem(["headImage"],data.data.head);
+				localStorage.setItem(["isShopping"],data.data.isShopping);
+				
+				$("#my_img").attr("src",localStorage["headImage"]);
+				alert("保存成功!")
+				window.location.href="personal_head.html";
+			}
+		});
+	}
+</script>
+</html>

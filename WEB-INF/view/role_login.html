@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="javascript" src="../../static/js/login1.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+<link href="../../static/css/login2.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>后台登录<sup>V2018</sup></h1>
+
+<div class="login" style="margin-top:50px;">
+    
+    <div class="header">
+        <div class="switch" id="switch"><a class="switch_btn_focus" id="switch_qlogin" href="javascript:void(0);" tabindex="7">快速登录</a>
+			<div class="switch_bottom" id="switch_bottom" style="position: absolute; width: 64px; left: 0px;"></div>
+        </div>
+    </div>    
+  
+    
+    <div class="web_qr_login" id="web_qr_login" style="display: block; height: 235px;">    
+
+            <!--登录-->
+            <div class="web_login" id="web_login">
+               
+               
+               <div class="login-box">
+    
+            
+			<div class="login_form">
+				<form action="http://www.jq22.com" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post"><input type="hidden" name="did" value="0"/>
+               <input type="hidden" name="to" value="log"/>
+                <div class="uinArea" id="uinArea">
+                <label class="input-tips" for="u">帐号：</label>
+                <div class="inputOuter" id="uArea">
+                    
+                    <input type="text" id="account" name="username"  class="inputstyle"/>
+                </div>
+                </div>
+                <div class="pwdArea" id="pwdArea">
+               <label class="input-tips" for="p">密码：</label> 
+               <div class="inputOuter" id="pArea">
+                    
+                    <input type="password" id="password" name="p"  class="inputstyle"/>
+                </div>
+                </div>
+               
+                <div style="padding-left:50px;margin-top:20px;">
+                <input onclick="roleLogin()" type="button" id="login" value="登 录" style="width:150px;" class="button_blue"/></div>
+              </form>
+           </div>
+           
+            	</div>
+               
+            </div>
+  </div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+var url = "http://localhost:8080/";
+	function roleLogin(){
+		$.ajax({
+			type:"post",
+			url:url+"role_info/roleLogin",
+			async:true,
+			dataType:"json",
+			data:{
+				account:$("#account").val(),
+				password:$("#password").val(),
+			},success:function(data){
+				if(data.info == "account or password failed"){
+					alert("账号或密码错误")
+					return;
+				}
+				console.log(data);
+				window.location.href="role_index.html";
+			},error:function(data){
+				
+			}
+		});	
+	}
+</script>
+</html>

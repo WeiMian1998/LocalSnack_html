@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personalBase.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/personal_massage.css">
+		<link rel="stylesheet" type="text/css" href="../../static/css/set_shop.css">
+		<script src="../../static/js/jquery-1.9.0.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+		<script src="../../static/js/baseUrl.js"></script>
+		<title>商户预约管理</title>
+		<style>
+			.wrapper{
+				height: 100%;
+			}
+			.ant_row{
+				margin-left: -263px;
+			}
+			.content_form{
+				margin-top: -10px;
+			}
+			.add_input{
+				margin-left: 159px;
+			}
+			.c_img{
+				width: 200px;
+				display: none;
+			}
+			.c_c_io{
+				float: left;
+				margin-right:40px;
+				width: 210px;
+			}
+			.c_c_right{
+				float: right;
+			}
+			.no_find_img{
+				display: none;
+				margin-top: 0px;
+			}
+			.order_list ul li{
+				background-color: #f4f4f4;
+				margin-bottom: 20px;
+			}
+			.one_order h5{
+	    		font-size: 20px;
+    			margin-bottom: 10px;
+    			margin-top: 10px;
+			}
+			.order_type{
+				margin-top: 5px;
+    			margin-bottom: 5px;
+			}
+			.order_num{
+				margin-top: 5px;
+    			margin-bottom: 5px;
+			}
+			.order_time{
+				margin-top: 5px;
+    			margin-bottom: 5px;
+			}
+			.tabel{
+				color: #606060;
+		    	margin-right: 20px;
+			}
+			.order_btn{
+				margin-left: 450px;
+			    margin-top: 10px;
+			    margin-bottom: 10px;
+			}
+			.right{
+				width: 120px;
+			    padding: 0.2em;
+			    border: 1px solid #fc9146;
+			    background-color: #fc9146;
+	    		margin-right: 20px;
+			    color: white;				
+			}
+			.delete_btn{
+				width: 120px;
+			    padding: 0.2em;
+			    border: 1px solid #fc9146;
+			    background-color: #fc9146;
+	    		margin-right: 20px;
+			    color: white;	
+			    margin-left: 130px;			
+			}			
+
+			.delete{
+				width: 120px;
+			    padding: 0.2em;
+			    border: 1px solid #cbcbcb;
+			    background-color: ##cbcbcb;
+			    color: white;	
+			    float: right;
+			    margin-right: 30px;
+			    margin-top: -25px;	
+			}
+			.delete:hover{
+				background-color: red;				
+			}
+			.waitDeal{
+			    margin-left: 650px;
+			    margin-top: -20px;
+			    color: red;
+			    display: none;
+			}
+			.haveCancel{
+			    margin-left: 635px;
+			    margin-top: -20px;
+			    color: #6b6b6b;
+			    display: none;
+			}
+			.haveDone{
+			    margin-left: 650px;
+			    margin-top: -20px;
+			    color: black;
+			    display: none;
+			}
+			.haveOrder{
+				margin-left: 650px;
+			    margin-top: -20px;
+			    color: blue;
+			    display: none;
+			}
+			.noOrder{
+				display: none;
+			    margin-left: 245px;
+			    margin-top: 120px;				
+			}
+			.shopOrderList{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header-container">
+			<div class="top-nav">
+				<div class="top-nav-container clearfix">
+					<div class="group mini-logo">
+						<a target="_blank" class="item" href="index.html">当地小食</a>
+					</div>
+					<div class="group quick-menu">
+						<span>
+							<a id="username" target="_blank" class="item left-split username J-user-trigger undline" href="personal_sc.html">Admin</a>
+							<span class="seprate">|</span>
+						</span>
+						<a target="_blank" class="item left-split user-msg J-message-trigger undline" href="my_order_list.html">我的预约</a>
+						<span class="seprate">|</span>
+						<a class="item J-my-center-trigger undline" href="personal_massage.html">个人中心</a>
+						<span class="seprate">|</span>
+						<a id="MyShop"style="display: none;" class="item J-my-center-trigger undline" href="MyShopping.html">我的商户</a>
+						<span id="MyShop_span" style="display: none;" class="seprate">|</span>
+						<a id="setShop"style="display: none;" class="item J-my-center-trigger undline" href="set_shop.html">创建商户</a>
+						<span id="setShop_span" style="display: none;" class="seprate">|</span>
+						<p onclick="logout()"  class="item left-split user-msg J-message-trigger undline">登出</p>
+	
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="wrapper">
+			<div class="left_list">
+				<span class="personal_title">商户管理</span>
+				<ul class="personal_ul">
+					<li>
+						<a class="change " href="MyShopping.html"><span class="personal_nav_name">商户信息</span></a>
+					</li>
+	
+					<li>
+						<a class="change" href="ShopUpdate.html"><span class="personal_nav_name">商户修改</span></a>
+					</li>
+					<li>
+						<a class="change" href="personal_collection.html"><span class="personal_nav_name">商户相册</span></a>
+					</li>
+					<li  style="background-color: #ff7b2e;">
+						<a class="change change_a" href="shop_order.html"><span class="personal_nav_name">预约管理</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="right_content">
+				<div class="right_title">
+					<span>商户预约管理</span>
+				</div>
+
+				<div id="noOrder" class="noOrder">
+					<img style="width: 280px;" src="../../static/img/haveNoContent.jpg" />
+				</div>
+
+				<div class="user_setting_warp content_form">
+					<div class="order_list">
+						<ul id="shopOrderList" class="shopOrderList">
+							<li v-for="data in datas">
+								<div class="one_order">
+									<h5>预约信息</h5>
+									<div class="user_name">
+										预约人：<span class="tabel">{{data.user_name}}</span>
+										手机号：<span class="tabel">{{data.telphone}}</span>
+										<span v-bind:id=['waitDeal'+data.order_id] class="waitDeal">新的预约</span>
+										<span v-bind:id=['haveDone'+data.order_id] class="haveDone">已完成</span>
+										<span v-bind:id=['haveOrder'+data.order_id] class="haveOrder">正在进行</span>
+										<span v-bind:id=['haveCancel'+data.order_id] class="haveCancel">已取消</span>
+									</div>
+									<div class="order_time">
+										预约时间：<span class="tabel">{{data.order_time}}</span>
+									</div>
+									<div class="order_num">
+										人数：<span class="tabel">{{data.order_num}}</span>
+									</div>
+									<div class="order_type">
+										类型：<span class="tabel">{{data.name}}</span>
+									</div>
+									<div class="order_details">
+										备注：<span>{{data.order_details}}</span>
+									</div>	
+									
+									<div class="order_btn">
+										<input v-bind:onclick=['rightOrder('+data.order_id+')'] v-bind:id=['orderLeft'+data.order_id] class="right" type="button" name="" value="确认" />
+										<input v-bind:onclick=['deleteOrder('+data.order_id+')'] v-bind:id=['orderRight'+data.order_id] class="delete" type="button" name="" value="取消" />
+										<input v-bind:onclick=['deleteRecord('+data.order_id+')'] v-bind:id=['deleteRecord'+data.order_id] class="delete_btn" type="button" name="" value="删除记录" />
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-container">
+			<div class="channel-footer">
+				<p class="links">
+					<a href="#" class="links_p">关于当地小食&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">诚信公约&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>				
+					<a href="" class="links_p">网站帮助&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">网站地图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">最新咨询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">人才招聘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<a href="" class="links_p">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a>
+					<div class="clear"></div>
+				</p>
+				<p class="rights">
+					<span>
+						©2017-2018 ddxs.com, All Rights Reserved.
+					</span>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		is_shopping();
+		showMyShop();
+		showShopOrder("#shopOrderList");
+	function showMyShop(){
+		$.ajax({
+			type:"get",
+			url:url+"shop/showMyShop",
+			async:true,
+			dataType:"json",
+			data:{
+				token:localStorage["token"],
+			},success:function(data){
+				console.log(data);
+				localStorage.setItem("shop_id",data.data[0].shop_id);
+			},error:function(data){
+				
+			}
+		});		
+	}	
+	function showShopOrder(el){
+		$.ajax({
+			type:"get",
+			url:url+"order_info/showShopOrder",
+			async:true,
+			dataType:"json",
+			data:{
+				shop_id:localStorage["shop_id"],
+				
+			},success:function(data){
+				if(data.data.length == 0){
+					$("#noOrder").css("display","block");
+				}
+				$("#shopOrderList").css("display","block");
+				console.log(data);
+				new Vue({
+					el:el,
+					data:{
+						datas:data.data
+					}
+				})
+				for(var i=0;i<data.data.length;i++){
+					if(data.data[i].order_state == 2){
+						$("#waitDeal"+data.data[i].order_id).css("display","block");
+						$("#haveDone"+data.data[i].order_id).css("display","none");
+						$("#haveOrder"+data.data[i].order_id).css("display","none");
+						$("#haveCancel"+data.data[i].order_id).css("display","none");
+						$("#orderRight"+data.data[i].order_id).css("display","block");
+						$("#orderLeft"+data.data[i].order_id).css("display","block");
+						$("#deleteRecord"+data.data[i].order_id).css("display","none");
+					}else if(data.data[i].order_state == 1){
+						$("#waitDeal"+data.data[i].order_id).css("display","none");
+						$("#haveDone"+data.data[i].order_id).css("display","none");
+						$("#haveOrder"+data.data[i].order_id).css("display","block");
+						$("#haveCancel"+data.data[i].order_id).css("display","none");
+						$("#orderLeft"+data.data[i].order_id).css("display","none");
+						$("#orderRight"+data.data[i].order_id).css("display","block");
+						$("#deleteRecord"+data.data[i].order_id).css("display","none");
+					}else if(data.data[i].order_state == 3){
+						$("#waitDeal"+data.data[i].order_id).css("display","none");
+						$("#haveDone"+data.data[i].order_id).css("display","block");
+						$("#haveOrder"+data.data[i].order_id).css("display","none");
+						$("#haveCancel"+data.data[i].order_id).css("display","none");
+						$("#orderLeft"+data.data[i].order_id).css("display","none");
+						$("#orderRight"+data.data[i].order_id).css("display","block");
+						$("#deleteRecord"+data.data[i].order_id).css("display","none");
+					}else if(data.data[i].order_state == 0){
+						$("#waitDeal"+data.data[i].order_id).css("display","none");
+						$("#haveDone"+data.data[i].order_id).css("display","none");
+						$("#haveOrder"+data.data[i].order_id).css("display","none");
+						$("#haveCancel"+data.data[i].order_id).css("display","block");
+						$("#orderLeft"+data.data[i].order_id).css("display","none");
+						$("#orderRight"+data.data[i].order_id).css("display","none");
+						$("#deleteRecord"+data.data[i].order_id).css("display","block");
+					}
+				}				
+			},error:function(data){
+				
+			}
+		});		
+	}
+
+	function rightOrder(orderId){
+		$.ajax({
+			type:"post",
+			url:url+"order_info/RightOrderByShop",
+			async:true,
+			dataType:"json",
+			data:{
+				order_id:orderId,
+			},success:function(data){
+				console.log(data);
+				showShopOrder("#shopOrderList");
+			},error:function(data){
+				
+			}
+		});				
+	}
+	
+	function deleteOrder(orderId){
+		$.ajax({
+			type:"get",
+			url:url+"order_info/deleteOrder",
+			async:true,
+			dataType:"json",
+			data:{
+				order_id:orderId,
+			},success:function(data){
+				console.log(data);
+				showShopOrder("#shopOrderList");
+			},error:function(data){
+				
+			}
+		});				
+	}
+	function deleteRecord(orderId){
+		$.ajax({
+			type:"get",
+			url:url+"order_info/deleteRecord",
+			async:true,
+			dataType:"json",
+			data:{
+				order_id:orderId,
+			},success:function(data){
+				console.log(data);
+				window,location.href="shop_order.html";
+			},error:function(data){
+				
+			}
+		});				
+	}
+</script>

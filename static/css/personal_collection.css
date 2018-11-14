@@ -1,0 +1,78 @@
+		.con{
+			padding: 30px;
+		}
+		.odd{
+		    background-color: #f8f8f8;	
+		    margin-bottom: 10px;
+		}
+		.con ul{
+			padding-left: 0px;
+		}
+		.con li{
+			position: relative;
+			padding: 18px 20px;
+		}
+		.txt{
+			display: table-cell;
+		    width: 2000px;
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		    word-break: break-all;
+		}
+		.tit{
+			margin-bottom: 5px;
+		}
+		.tit a{
+				font-size: 16px;
+			    margin-right: 7px;
+			    display: inline-block;
+			    overflow: hidden;
+			    zoom: 1;
+			    vertical-align: middle;
+				color: #2595b7;
+		}
+		.txt-c {
+		    display: table;
+		    width: 100%;
+		    table-layout: fixed;
+		    word-break: break-all;
+		    word-wrap: break-word;
+		}		
+		.address{
+		    padding-bottom: 5px;		   
+		    width: 200px;	
+		}
+		.city{
+		    margin-right: 5px;
+		    font-size: 12px;
+
+		}
+		.details{
+			font-size: 12px; 	
+		}
+		.collection_time{
+			margin: 4px 0 0;
+    		padding-bottom: 0;	
+		}
+		.collection_time span{
+			font-size: 12px;
+		}
+		.collection_time span i{
+			margin-right: 10px;
+		}
+		.isdelete{
+			font-size: 12px;
+			color: #0ab0ff;
+			float: right;
+		}
+		.isdelete:hover{
+			color: red;
+		}
+			.noOrder{
+				display: none;
+			    margin-left: 245px;
+			    margin-top: 120px;				
+			}
+			.colList{
+				display: none;
+			}

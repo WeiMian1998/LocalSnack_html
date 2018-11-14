@@ -1,0 +1,217 @@
+		body{
+			background-color: white;
+		}
+			.header-box{
+			position: relative;
+			width: 732px;
+			height: 120px;
+			margin-top: 40px;
+			padding: 10px 0 10px 10px;
+			margin-bottom: 10px;
+			background-color: white;
+			zoom:1;
+			margin-left: auto;
+    		margin-right: auto;
+		}
+		.pic{
+			float: left;
+			margin-right: 10px;
+		}
+		.pic img{
+			width: 120px;
+			height: 120px;
+		}
+		.txt{
+			display: table-cell;
+		    width: 2000px;
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		    word-break: break-all;
+		}
+		.tit{
+			padding: 5px 0 0 10px;
+		}
+		.name{
+			font-size: 25px;
+			font-family: "Microsoft YaHei";
+			float: left;
+			margin-right: 5px;
+		}
+		.edit{
+			float: left;
+			padding-top: 23px;
+		}
+		.edit a{
+			position: relative;
+			top:5px;
+			color: #0079f6;
+		}
+		.nav{
+			position: absolute;
+		    width: 300px;
+		    bottom: 0;
+		    background-color: #fff;	
+		}
+		.nav ul{
+			width: 820px;
+	    	padding: 10px 0 10px;
+	   	 	zoom: 1;	
+		}
+		 .nav li {
+		    float: left;
+		    margin-right: 5px;
+		}	
+		.cur a{
+		    width: 90px;
+		    height: 21px;
+		    text-align: center;
+		    padding: 7px 9px 7px 10px;
+		    border: 1px solid #eaeaea;
+		    font-size: 14px;
+		    float: left;
+		    vertical-align: middle;	
+		    border-radius: 2px;		
+		    font-weight: bold;
+    		text-decoration: none;
+    		background-color: #fff;
+		    border-color: #ff8400;
+		    color: #ff8400;
+
+		}
+		.cur a:hover{
+    		background-color: #ff8400;
+		    border-color: #ff8400;
+		    color: #fff;
+		}
+		.main{
+			box-shadow: rgba(225,246,254,0.9) 1px 0 1px;
+		    float: left;
+		    width: 807px;
+		    padding-bottom: 50px;
+		    min-height: 625px;
+		    margin-left: 324px;
+
+		}
+		.modebox{
+		    padding: 10px 25px;	
+		}
+		.pic-txt {
+		    zoom: 1;
+		}
+		.pic-txt li{
+		    zoom: 1;
+		    font-size: 12px;
+		}
+		.txt {
+		    display: table-cell;
+		    width: 2000px;
+		    table-layout: fixed;
+		    word-wrap: break-word;
+		    word-break: break-all;
+		}
+		.main_tit{
+			margin-bottom: 10px;
+			background-color: #f4f4f4;
+			padding: 10px 20px 8px;	
+		}	
+		.main_tit h6{
+			font-size: 14px;
+			margin-right: 7px;
+	    	display: inline-block;
+	    	overflow: hidden;
+	    	zoom: 1;
+	    	vertical-align: middle;	
+	    	margin-top: 0px;
+	    	margin-bottom: 0px;
+		}
+		.main_tit_a{
+			color: #04aeff;
+		}	
+		.comm-list .pic-txt li .txt-c {
+		    display: table;
+		    width: 97%;
+		    padding: 0 0 15px 20px;
+		    table-layout: fixed;
+		    line-height: 1.8;
+		}	
+		.txt-c{
+		    display: table;
+    		width: 97%;
+    		padding: 0 0 15px 20px;
+    		table-layout: fixed;
+    		line-height: 1.8;	
+		}
+		.addres{
+			padding-bottom: 0;
+    		line-height: 2;	
+    		height: 20px;
+    		color: #acacac;
+		}
+		.addres p{
+			margin-top: 0px;
+		}
+		.mode-tc {
+		    padding-bottom: 5px;
+		}
+		.comm-rst {
+		    zoom: 1;
+		    position: relative;
+		}	
+		.comm-entry {
+		    word-wrap: break-word;
+		    word-break: break-all;
+		}
+		.comm-shop-info li {
+		    position: relative;
+		    padding-left: 60px;
+		}
+		.comm-shop-info ul{
+			padding-left: 0px;
+		}
+		.comm-shop-info .col-exp {
+		    float: left;
+		    width: 60px;
+		    margin-left: -60px;
+		    padding-right: 5px;
+		    color: #979797;    
+		}	
+		.col-exp {
+		    color: #999;
+		}
+		.col-right{
+			float: right;
+    		margin-right: 5px;
+		}		
+		.aheart{
+			text-decoration: none;
+		}
+		.heart-s1{
+			background-position: -68px -10px;	
+		}
+		.heart-bg {
+		    background-repeat: no-repeat;
+		    background-image: url(//www.dpfile.com/s/c/user/i/shop-heart.4b96a3f….png);
+		}
+		.iheart {
+		    width: 18px;
+		    height: 15px;
+		    display: inline-block;
+		    overflow: hidden;
+		    zoom: 1;
+		    vertical-align: middle;
+		}
+		.aheart span {
+		    cursor: pointer;
+		}
+		.line {
+		    padding: 0 10px;
+		    color: #eaeaea;
+		}
+			.noOrder{
+				display: none;
+			    margin-left: 245px;
+			    margin-top: 120px;				
+			}
+			.reviewList{
+				display: none;
+			}

@@ -1,0 +1,131 @@
+		body{
+			background-color: #e4e3e3;s
+		}
+		.main{
+			width: 1190px;
+			margin: 0 auto;
+		}
+		.main_title{
+			position: relative;
+			height: 112px;
+		    font-family: FZXBSJW--GB1-0;
+		    font-size: 18px;
+		    line-height: 112px;
+		    color: #333;
+		    text-align: center;
+		    letter-spacing: 0;
+		    background-color: #f5f5f5;
+		}
+		.back{
+			position: absolute;
+		    left: 0;
+		    padding-left: 40px;
+		    font-size: 14px;
+		    color: #f63;	
+		}
+		.main_title h5{
+			font-size: 20px;
+			font-weight: 20;
+		}
+		.main_content{
+			background-color: white;
+		}
+		.content_form{
+			    padding-top: 43px;
+		}
+		.ant_row{
+			display: flex;
+			position: relative;
+		    margin-left: 0;
+    		margin-right: 0;
+    		height: auto;
+    		zoom: 1;
+    		margin-bottom: 24px;
+    		color: rgba(0,0,0,.65);
+    		vertical-align: top;
+    		font-size: 14px;	
+		}
+		.c_text{
+			text-align: right;
+		    vertical-align: middle;
+		    line-height: 32px;
+		    display: inline-block;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		}
+		.c_title{
+		    display: inline-block;
+		    width: 100px;
+		    padding-right: 20px;
+		    margin-left: 301px;
+		    color: rgba(0,0,0,.85);	
+		    padding-top: 1px;
+		    font-size: 15px;
+		}
+		.c_input{
+			line-height: 32px;
+		    position: relative;
+		    zoom: 1;
+		}
+		.ant_input{
+		    -webkit-appearance: none;
+		    width: 200px;
+    		height: 25px;
+    		padding: 0.4em;	
+    		border: 1px solid;
+    		border-radius: 3px;
+    		border-color: #bcbcbc;
+    		outline: none;
+		}
+        .parent{
+            background: url('http://ourjs.github.io/static/2015/arrow.png') right center no-repeat; 
+                width: 210px;
+                height: 35px;
+                overflow: hidden;
+                border: solid 1px #848484;
+                border-radius: 3px;
+        }
+
+        .parent select{
+            -webkit-appearance:none;
+            -moz-appearance:none;
+            appearance:none;
+            background:transparent;
+            border:none;
+            padding: 0.5em;
+            width: 211px;
+            height:100%; 
+            outline: none; 
+            font-size: 14px;
+            color: #848484;
+        }
+        .tar_plain{
+			width: 450px;
+			height: auto;
+	    	overflow-y: auto;
+ 	   		color: #555;
+ 	   		padding: 7px;
+		}	
+		.dpshop-add-divider{
+		    width: 960px;
+		    height: 1px;
+		    margin: 0 auto;
+		    background: #eee;	
+		}
+		.foot{
+			height: 103px;
+    		padding-top: 31px;
+		}
+		.add_input{
+		    width: 164px;
+		    height: 40px;
+		    margin: 0 auto;
+		    line-height: 40px;
+		    color: #fff;
+		    text-align: center;
+		    background: #f63;
+		    border-radius: 3px;
+		    margin-left: 515px;
+		    border:1px solid;
+		}
